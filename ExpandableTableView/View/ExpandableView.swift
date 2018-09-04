@@ -38,15 +38,17 @@ extension ExpandableView: ViewCodable {
     }
     
     func configureHierarchy() {
-        addSubview(tableView)
+        addView(tableView)
     }
     
     func configureConstraints() {
-        tableView
-            .topAnchor(equalTo: self.topAnchor)
-            .bottomAnchor(equalTo: self.bottomAnchor)
-            .leadingAnchor(equalTo: self.leadingAnchor)
-            .trailingAnchor(equalTo: self.trailingAnchor)
+        
+        tableView.layout.makeConstraints { make in
+            make.top.equalTo(layout.safeArea.top)
+            make.bottom.equalTo(layout.safeArea.bottom)
+            make.leading.equalTo(layout.leading)
+            make.trailing.equalTo(layout.trailing)
+        }
     }
 }
 
@@ -57,7 +59,7 @@ extension ExpandableView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
+        
         let cell: ExpandableCell = tableView.dequeueReusableCell(ExpandableCell.self, for: indexPath)!
         cell.selectionStyle = .none
         
@@ -89,7 +91,7 @@ extension ExpandableView: UITableViewDelegate {
             cellHeights[indexPath.section]![indexPath.row] = cell.bounds.height
         }
     }
-        
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
@@ -129,9 +131,3 @@ extension ExpandableView: UITableViewDelegate {
         self.tableView.reloadRows(at: [indexPath, lastIndexPath], with: .fade)
     }
 }
-
-
-
-
-
-

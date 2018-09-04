@@ -62,54 +62,46 @@ extension ExpandableCell: ViewCodable {
     }
     
     func configureHierarchy() {
-        containerView.addSubview(lineView)
-        containerView.addSubview(descriptionLabel)
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(arrowImage)
-        contentView.addSubview(containerView)
+        containerView.addView(lineView, descriptionLabel)
+        contentView.addView(titleLabel, arrowImage, containerView)
     }
     
     func configureConstraints() {
         
-        arrowImage.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        lineView.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        arrowImage.layout.makeConstraints { make in
+            make.trailing.equalTo(contentView.layout.trailing, constant: -16)
+            make.centerY.equalTo(titleLabel.layout.centerY)
+            make.height.equalTo(constant: 25)
+            make.width.equalTo(constant: 25)
+        }
         
-        arrowImage
-            .trailingAnchor(equalTo: contentView.trailingAnchor, constant: -16)
-            .centerYAnchor(equalTo: titleLabel.centerYAnchor)
-            .heightAnchor(equalTo: 25)
-            .widthAnchor(equalTo: 25)
+        titleLabel.layout.makeConstraints { make in
+            make.top.equalTo(contentView.layout.top, constant: 16)
+            make.bottom.equalTo(containerView.layout.top).priority(LayoutPriortizable.low).reference(&bottomConstraintOff)
+            make.bottom.equalTo(containerView.layout.top, constant: -16).priority(LayoutPriortizable.high).reference(&bottomConstraintOn)
+            make.leading.equalTo(contentView.layout.leading, constant: 16)
+            make.trailing.equalTo(arrowImage.layout.leading, constant: -16)
+        }
         
-        titleLabel
-            .topAnchor(equalTo: contentView.topAnchor, constant: 16)
-            .leadingAnchor(equalTo: contentView.leadingAnchor, constant: 16)
-            .trailingAnchor(equalTo: arrowImage.leadingAnchor, constant: -16)
+        containerView.layout.makeConstraints { make in
+            make.leading.equalTo(contentView.layout.leading)
+            make.trailing.equalTo(contentView.layout.trailing)
+            make.bottom.equalTo(contentView.layout.bottom)
+        }
         
-        containerView
-            .leadingAnchor(equalTo: contentView.leadingAnchor)
-            .trailingAnchor(equalTo: contentView.trailingAnchor)
-            .bottomAnchor(equalTo: contentView.bottomAnchor)
+        lineView.layout.makeConstraints { make in
+            make.top.equalTo(containerView.layout.top)
+            make.leading.equalTo(containerView.layout.leading, constant: 16)
+            make.trailing.equalTo(containerView.layout.trailing, constant: -16)
+            make.height.equalTo(constant: 1)
+        }
         
-        lineView
-            .topAnchor(equalTo: containerView.topAnchor)
-            .leadingAnchor(equalTo: containerView.leadingAnchor, constant: 16)
-            .trailingAnchor(equalTo: containerView.trailingAnchor, constant: -16)
-            .heightAnchor(equalTo: 1)
-        
-        descriptionLabel
-            .topAnchor(equalTo: lineView.bottomAnchor)
-            .bottomAnchor(equalTo: containerView.bottomAnchor, constant: -16)
-            .leadingAnchor(equalTo: containerView.leadingAnchor, constant: 16)
-            .trailingAnchor(equalTo: containerView.trailingAnchor, constant: -16)
-        
-        bottomConstraintOff = self.titleLabel.bottomAnchor.constraint(equalTo: containerView.topAnchor, constant: 0)
-        bottomConstraintOff?.isActive = false
-        
-        bottomConstraintOn = self.titleLabel.bottomAnchor.constraint(equalTo: containerView.topAnchor, constant: -16)
-        bottomConstraintOn?.isActive = true
+        descriptionLabel.layout.makeConstraints { make in
+            make.top.equalTo(lineView.layout.bottom)
+            make.bottom.equalTo(containerView.layout.bottom, constant: -16)
+            make.leading.equalTo(containerView.layout.leading, constant: 16)
+            make.trailing.equalTo(containerView.layout.trailing, constant: -16)
+        }
     }
 }
 
