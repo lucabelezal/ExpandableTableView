@@ -20,16 +20,16 @@ final class ExpandableCell: UITableViewCell {
     }
 
     func update(item: Section) {
-        let isExpanded = item.isExpanded ?? false
+        //let isExpanded = item.isExpanded ?? false
 
-        rotateArrowImage(isExpanded: isExpanded)
+        //rotateArrowImage(isExpanded: isExpanded)
 
         titleLabel.text = item.title
-        descriptionLabel.text = isExpanded ? "\n"+item.title+"\n": ""
+        //descriptionLabel.text = isExpanded ? "\n"+item.title+"\n": ""
 
-        lineView.isHidden = !isExpanded ? true : false
-        bottomConstraintOn?.isActive = isExpanded
-        bottomConstraintOff?.isActive = !isExpanded
+//        lineView.isHidden = !isExpanded ? true : false
+//        bottomConstraintOn?.isActive = isExpanded
+//        bottomConstraintOff?.isActive = !isExpanded
     }
 
     func update(title: String, description: String) {

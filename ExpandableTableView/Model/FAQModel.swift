@@ -1,18 +1,34 @@
 import Foundation
 
-class FAQModel: Decodable {
+struct FAQModel: Decodable {
     let title: String
     let section: [Section]
 }
 
-class Section: Decodable {
-    let title: String
-    let questions: [Question]
-    var isExpanded: Bool? = false
+extension FAQModel: Hashable {
+    static func == (lhs: FAQModel, rhs: FAQModel) -> Bool {
+        return lhs.title == rhs.title && lhs.section == rhs.section
+    }
 }
 
-class Question: Decodable {
+struct Section: Decodable {
+    let title: String
+    let questions: [Question]
+}
+
+extension Section: Hashable {
+    static func == (lhs: Section, rhs: Section) -> Bool {
+        return lhs.title == rhs.title && lhs.questions == rhs.questions
+    }
+}
+
+struct Question: Decodable {
     let id: Int
     let title: String
-    var isExpanded: Bool? = false
+}
+
+extension Question: Hashable {
+    static func == (lhs: Question, rhs: Question) -> Bool {
+        return lhs.id == rhs.id && lhs.title == rhs.title
+    }
 }

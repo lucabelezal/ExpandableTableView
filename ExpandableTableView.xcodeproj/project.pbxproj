@@ -19,14 +19,15 @@
 		6E620692212A334F007AFA70 /* ExpandableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E620691212A334F007AFA70 /* ExpandableCell.swift */; };
 		B33987B625191DDA00935D79 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33987B525191DDA00935D79 /* ViewController.swift */; };
 		B33987B82519315300935D79 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33987B72519315300935D79 /* HeaderView.swift */; };
+		B33987CA2519431500935D79 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33987C92519431500935D79 /* TestViewController.swift */; };
+		B33987D3251954F600935D79 /* CollapseSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33987D2251954F600935D79 /* CollapseSectionHeader.swift */; };
+		B33987D52519550900935D79 /* CollapseTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33987D42519550900935D79 /* CollapseTableView.swift */; };
+		B33987D72519553200935D79 /* CollapseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33987D62519553200935D79 /* CollapseViewController.swift */; };
+		B33987D92519591700935D79 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33987D82519591700935D79 /* SectionHeaderView.swift */; };
 		B35851F32517F06500259FE0 /* FAQs.json in Resources */ = {isa = PBXBuildFile; fileRef = B35851F22517F06500259FE0 /* FAQs.json */; };
 		B35851F52517F32200259FE0 /* FAQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35851F42517F32200259FE0 /* FAQViewController.swift */; };
 		B35851FD2517F34F00259FE0 /* FAQPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35851FC2517F34F00259FE0 /* FAQPresenter.swift */; };
 		B35851FF2517F40400259FE0 /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35851FE2517F40400259FE0 /* JSONHelper.swift */; };
-		B35852172518CE6200259FE0 /* ExpyTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35852152518CE6200259FE0 /* ExpyTableView.swift */; };
-		B35852182518CE6200259FE0 /* ExpyAbstractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35852162518CE6200259FE0 /* ExpyAbstractions.swift */; };
-		B358521B2518CE9100259FE0 /* CustomizationExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B358521A2518CE9100259FE0 /* CustomizationExampleViewController.swift */; };
-		B358521D2518CEBE00259FE0 /* PhoneNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B358521C2518CEBE00259FE0 /* PhoneNameTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,14 +45,15 @@
 		6E620691212A334F007AFA70 /* ExpandableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandableCell.swift; sourceTree = "<group>"; };
 		B33987B525191DDA00935D79 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B33987B72519315300935D79 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		B33987C92519431500935D79 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		B33987D2251954F600935D79 /* CollapseSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapseSectionHeader.swift; sourceTree = "<group>"; };
+		B33987D42519550900935D79 /* CollapseTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapseTableView.swift; sourceTree = "<group>"; };
+		B33987D62519553200935D79 /* CollapseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapseViewController.swift; sourceTree = "<group>"; };
+		B33987D82519591700935D79 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
 		B35851F22517F06500259FE0 /* FAQs.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = FAQs.json; sourceTree = "<group>"; };
 		B35851F42517F32200259FE0 /* FAQViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FAQViewController.swift; sourceTree = "<group>"; };
 		B35851FC2517F34F00259FE0 /* FAQPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQPresenter.swift; sourceTree = "<group>"; };
 		B35851FE2517F40400259FE0 /* JSONHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONHelper.swift; sourceTree = "<group>"; };
-		B35852152518CE6200259FE0 /* ExpyTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpyTableView.swift; sourceTree = "<group>"; };
-		B35852162518CE6200259FE0 /* ExpyAbstractions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpyAbstractions.swift; sourceTree = "<group>"; };
-		B358521A2518CE9100259FE0 /* CustomizationExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizationExampleViewController.swift; sourceTree = "<group>"; };
-		B358521C2518CEBE00259FE0 /* PhoneNameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNameTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,7 +86,8 @@
 		6E6206602129E3DE007AFA70 /* ExpandableTableView */ = {
 			isa = PBXGroup;
 			children = (
-				B35852142518CE6200259FE0 /* ExpyTableView */,
+				B33987C92519431500935D79 /* TestViewController.swift */,
+				B33987B525191DDA00935D79 /* ViewController.swift */,
 				6E62067B2129E8A6007AFA70 /* View */,
 				6E62067A2129E89E007AFA70 /* Model */,
 				6E62067E2129E96B007AFA70 /* Utils */,
@@ -116,6 +119,7 @@
 		6E62067B2129E8A6007AFA70 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B33987D1251954ED00935D79 /* Collapse */,
 				B358521E2518E02300259FE0 /* Expandable */,
 				B35851FC2517F34F00259FE0 /* FAQPresenter.swift */,
 				B35851F42517F32200259FE0 /* FAQViewController.swift */,
@@ -136,24 +140,15 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		B35852142518CE6200259FE0 /* ExpyTableView */ = {
+		B33987D1251954ED00935D79 /* Collapse */ = {
 			isa = PBXGroup;
 			children = (
-				B35852192518CE8A00259FE0 /* Example */,
-				B35852152518CE6200259FE0 /* ExpyTableView.swift */,
-				B35852162518CE6200259FE0 /* ExpyAbstractions.swift */,
-				B33987B525191DDA00935D79 /* ViewController.swift */,
+				B33987D2251954F600935D79 /* CollapseSectionHeader.swift */,
+				B33987D82519591700935D79 /* SectionHeaderView.swift */,
+				B33987D42519550900935D79 /* CollapseTableView.swift */,
+				B33987D62519553200935D79 /* CollapseViewController.swift */,
 			);
-			path = ExpyTableView;
-			sourceTree = "<group>";
-		};
-		B35852192518CE8A00259FE0 /* Example */ = {
-			isa = PBXGroup;
-			children = (
-				B358521A2518CE9100259FE0 /* CustomizationExampleViewController.swift */,
-				B358521C2518CEBE00259FE0 /* PhoneNameTableViewCell.swift */,
-			);
-			path = Example;
+			path = Collapse;
 			sourceTree = "<group>";
 		};
 		B358521E2518E02300259FE0 /* Expandable */ = {
@@ -237,21 +232,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B33987CA2519431500935D79 /* TestViewController.swift in Sources */,
 				6E6206892129E96B007AFA70 /* ReusableView.swift in Sources */,
 				6E620692212A334F007AFA70 /* ExpandableCell.swift in Sources */,
+				B33987D3251954F600935D79 /* CollapseSectionHeader.swift in Sources */,
 				6E6206762129E49B007AFA70 /* FAQModel.swift in Sources */,
-				B35852172518CE6200259FE0 /* ExpyTableView.swift in Sources */,
 				6E62068B2129EA06007AFA70 /* ExpandableView.swift in Sources */,
-				B35852182518CE6200259FE0 /* ExpyAbstractions.swift in Sources */,
 				B33987B82519315300935D79 /* HeaderView.swift in Sources */,
 				6E6206872129E96B007AFA70 /* UITableView+ReusableView.swift in Sources */,
+				B33987D72519553200935D79 /* CollapseViewController.swift in Sources */,
+				B33987D52519550900935D79 /* CollapseTableView.swift in Sources */,
 				B35851FD2517F34F00259FE0 /* FAQPresenter.swift in Sources */,
 				6E6206622129E3DE007AFA70 /* AppDelegate.swift in Sources */,
 				B35851F52517F32200259FE0 /* FAQViewController.swift in Sources */,
+				B33987D92519591700935D79 /* SectionHeaderView.swift in Sources */,
 				B35851FF2517F40400259FE0 /* JSONHelper.swift in Sources */,
-				B358521B2518CE9100259FE0 /* CustomizationExampleViewController.swift in Sources */,
 				6E6206882129E96B007AFA70 /* UIView+ReusableView.swift in Sources */,
-				B358521D2518CEBE00259FE0 /* PhoneNameTableViewCell.swift in Sources */,
 				B33987B625191DDA00935D79 /* ViewController.swift in Sources */,
 				6E6206862129E96B007AFA70 /* ViewCodable.swift in Sources */,
 			);

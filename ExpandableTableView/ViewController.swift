@@ -5,7 +5,7 @@ final class ViewController: UIViewController {
 
     let kHeaderSectionTag: Int = 6900
     var currentExpandedSectionHeader: UITableViewHeaderFooterView = UITableViewHeaderFooterView()
-    var currentExpandedSectionHeaderNumbers: [Int] = [-1, -1, -1]
+    var currentExpandedSectionHeaderNumbers: [Int] = []
 
     var sectionNames: [String] = []
     var sectionItems: [[String]] = [[]]
@@ -29,6 +29,9 @@ final class ViewController: UIViewController {
             ["Germany", "Italy", "France", "Greece"],
             ["Algeria", "Nigeria", "Senegal"]
         ]
+        sectionNames.forEach { _ in
+            currentExpandedSectionHeaderNumbers.append(-1)
+        }
 
         expandableTableView.register(UITableViewCell.self)
         expandableTableView.delegate = self
@@ -52,24 +55,24 @@ final class ViewController: UIViewController {
 extension ViewController {
     @objc
     func sectionHeaderWasTouched(_ sender: UITapGestureRecognizer) {
-        let headerView = sender.view as! UITableViewHeaderFooterView
+        guard let headerView = sender.view as? UITableViewHeaderFooterView else { return }
         let section = headerView.tag
         let currentlyTouchedHeaderImageView = headerView.viewWithTag(kHeaderSectionTag + section) as? UIImageView
 
         if !isAnySectionExpanded() {
             currentExpandedSectionHeaderNumbers[section] = section
-            expandTableViewSection(section, imageView: currentlyTouchedHeaderImageView!)
+            expandTableViewSection(section: section, imageView: currentlyTouchedHeaderImageView!)
         } else {
             if currentExpandedSectionHeaderNumbers[section] != -1 {
-                collapseTableViewSection(section, imageView: currentlyTouchedHeaderImageView!)
+                collapseTableViewSection(section: section, imageView: currentlyTouchedHeaderImageView!)
             } else {
                 collpaseAlreadyExpandedSection()
-                expandTableViewSection(section, imageView: currentlyTouchedHeaderImageView!)
+                expandTableViewSection(section: section, imageView: currentlyTouchedHeaderImageView!)
             }
         }
     }
 
-    func collapseTableViewSection(_ section: Int, imageView: UIImageView) {
+    func collapseTableViewSection(section: Int, imageView: UIImageView) {
         let sectionData = sectionItems[section]
 
         currentExpandedSectionHeaderNumbers[section] = -1
@@ -93,7 +96,7 @@ extension ViewController {
         }
     }
 
-    func expandTableViewSection(_ section: Int, imageView: UIImageView) {
+    func expandTableViewSection(section: Int, imageView: UIImageView) {
         let sectionData = sectionItems[section]
 
         if sectionData.count == 0 {
@@ -132,7 +135,7 @@ extension ViewController {
         for section in 0 ..< currentExpandedSectionHeaderNumbers.count {
             if currentExpandedSectionHeaderNumbers[section] != -1 {
                 let alreadyExpandedHeaderImageView = view.viewWithTag(kHeaderSectionTag + section) as? UIImageView ?? UIImageView()
-                collapseTableViewSection(section, imageView: alreadyExpandedHeaderImageView)
+                collapseTableViewSection(section: section, imageView: alreadyExpandedHeaderImageView)
             }
         }
     }
@@ -163,7 +166,8 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self))!
         let section = sectionItems[indexPath.section]
-        cell.textLabel?.textColor = .green
+        cell.backgroundColor = .white
+        cell.textLabel?.textColor = .black
         cell.textLabel?.text = section[indexPath.row]
         return cell
     }
