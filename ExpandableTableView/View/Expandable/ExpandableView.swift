@@ -1,28 +1,29 @@
-//
-//  ExpandableView.swift
-//  ExpandableTableView
-//
-//  Created by Lucas Nascimento on 19/08/18.
-//  Copyright © 2018 Lucas Nascimento. All rights reserved.
-//
-
 import UIKit
 
-class ExpandableView: UIView {
-    
+final class ExpandableView: UIView {
+
     private var cellHeights: [Int: [Int: CGFloat]] = [:]
     private var selectedIndexPath: IndexPath?
-    private var tableView: UITableView
-    var items = Item.allItems()
-    
+    private var tableView: UITableView = UITableView()
+
+    private var faqs: [FAQModel] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+
     override init(frame: CGRect) {
-        tableView = UITableView(frame: frame, style: .plain)
         super.init(frame: frame)
         setupView()
     }
-    
+
+    @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func update(withFAQs faqs: [FAQModel]) {
+        self.faqs = faqs
     }
 }
 
@@ -34,100 +35,112 @@ extension ExpandableView: ViewCodable {
         tableView.rowHeight = 70
         tableView.separatorInset = .zero
         tableView.tableFooterView = UIView(frame: .zero)
-        tableView.backgroundColor = UIColor.white
+        tableView.backgroundColor = .white
     }
-    
+
     func configureHierarchy() {
-        addView(tableView)
+        addSubview(tableView)
     }
-    
+
     func configureConstraints() {
-        
-        tableView.layout.makeConstraints { make in
-            make.top.equalTo(layout.safeArea.top)
-            make.bottom.equalTo(layout.safeArea.bottom)
-            make.leading.equalTo(layout.leading)
-            make.trailing.equalTo(layout.trailing)
-        }
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
+        ])
     }
 }
 
 extension ExpandableView: UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let button = UIButton()
+        button.backgroundColor = .red
+        button.setTitle(faqs[section].title, for: .normal)
+        return button
     }
-    
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return faqs.count
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return faqs[section].section.count + faqs[section].section[section + 1].questions.count
+    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+
         let cell: ExpandableCell = tableView.dequeueReusableCell(ExpandableCell.self, for: indexPath)!
         cell.selectionStyle = .none
-        
-        let item = items[indexPath.row]
-        cell.update(item)
+
+        let title = faqs[indexPath.section].section[indexPath.row].title
+        let description = faqs[indexPath.section].section[indexPath.row].questions[indexPath.row].title
+        cell.update(title: title, description: description)
         return cell
     }
 }
 
 extension ExpandableView: UITableViewDelegate {
-    
+
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         if let dict = cellHeights[indexPath.section] {
             if dict.keys.contains(indexPath.row) {
                 return dict[indexPath.row]!
             } else {
-                cellHeights[indexPath.section]![indexPath.row] = UITableViewAutomaticDimension
-                return UITableViewAutomaticDimension
+                cellHeights[indexPath.section]![indexPath.row] = UITableView.automaticDimension
+                return UITableView.automaticDimension
             }
         }
-        
+
         cellHeights[indexPath.section] = [:]
-        cellHeights[indexPath.section]![indexPath.row] = UITableViewAutomaticDimension
+        cellHeights[indexPath.section]![indexPath.row] = UITableView.automaticDimension
         return cellHeights[indexPath.section]![indexPath.row]!
     }
-    
+
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let dict = cellHeights[indexPath.section], dict[indexPath.row] == UITableViewAutomaticDimension {
+        if let dict = cellHeights[indexPath.section], dict[indexPath.row] == UITableView.automaticDimension {
             cellHeights[indexPath.section]![indexPath.row] = cell.bounds.height
         }
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+
         if selectedIndexPath == nil {
             expand(indexPath: indexPath)
         }
-        
+
         if selectedIndexPath == indexPath {
             expand(indexPath: indexPath)
         }
-        
+
         if let lastIndexPath = selectedIndexPath, selectedIndexPath != indexPath {
             collapse(lastIndexPath: lastIndexPath, indexPath: indexPath)
         }
-        
-        self.tableView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.middle, animated: true)
-        
+
+        self.tableView.scrollToRow(at: indexPath, at: UITableView.ScrollPosition.middle, animated: true)
+
         selectedIndexPath = indexPath
     }
-    
+
     func expand(indexPath: IndexPath) {
-        let subject = items[indexPath.row]
-        subject.isExpanded = !subject.isExpanded
+        let subject = faqs[indexPath.section].section[indexPath.row].questions[indexPath.row]
+        subject.isExpanded? = !(subject.isExpanded ?? false)
         self.tableView.reloadRows(at: [indexPath], with: .fade)
     }
-    
+
     func collapse(lastIndexPath: IndexPath, indexPath: IndexPath) {
-        let lastSubject = items[lastIndexPath.row]
+        let lastSubject = faqs[indexPath.section].section[indexPath.row].questions[indexPath.row]
         lastSubject.isExpanded = false
-        
-        let subject = items[indexPath.row]
-        subject.isExpanded = !subject.isExpanded
-        
+
+        let subject = faqs[indexPath.section].section[indexPath.row].questions[indexPath.row]
+        subject.isExpanded = !(subject.isExpanded ?? false)
+
         self.tableView.reloadRows(at: [indexPath, lastIndexPath], with: .fade)
     }
 }
