@@ -7,8 +7,12 @@ final class ViewController: UIViewController {
     var currentExpandedSectionHeader: UITableViewHeaderFooterView = UITableViewHeaderFooterView()
     var currentExpandedSectionHeaderNumbers: [Int] = []
 
-    var sectionNames: [String] = []
-    var sectionItems: [[String]] = [[]]
+    var sectionNames: [FAQModel] = []
+    var sectionItems: [FAQSectionViewModel] = [] {
+        didSet {
+            expandableTableView.reloadData()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,20 +58,30 @@ final class ViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    func transformRows(section: Section) -> [String] {
+        return [section.title] + section.questions.compactMap { $0.title }
+    }
 }
 
 extension ViewController: FAQViewControllerProtocol {
     func showView(withFAQs faqs: [FAQModel]) {
-        sectionNames = ["Asia", "Europe", "Africa"]
-        sectionItems = [
-            ["Pakistan", "India", "Srilanka", "China", "Bangladesh", "Japan"],
-            ["Germany", "Italy", "France", "Greece"],
-            ["Algeria", "Nigeria", "Senegal"]
-        ]
-        sectionNames.forEach { _ in
-            currentExpandedSectionHeaderNumbers.append(-1)
+        self.sectionNames = faqs
+        self.sectionNames.forEach { _ in currentExpandedSectionHeaderNumbers.append(-1) }
+
+        var sections: [FAQSectionViewModel] = []
+
+        for (index, element) in faqs.enumerated() {
+            for section in faqs[index].section {
+                var title: String?
+                if section == faqs[index].section.first {
+                    title = element.title
+                }
+                sections += [FAQSectionViewModel(title: title, rows: transformRows(section: section))]
+            }
         }
-        expandableTableView.reloadData()
+
+        self.sectionItems = sections
     }
 
     func showErrorView(withError error: Error) {}
@@ -98,7 +112,7 @@ extension ViewController {
     }
 
     func collapseTableViewSection(section: Int, imageView: UIImageView) {
-        let sectionData = sectionItems[section]
+        let sectionData = sectionItems[section].rows
 
         currentExpandedSectionHeaderNumbers[section] = -1
 
@@ -122,15 +136,15 @@ extension ViewController {
     }
 
     func expandTableViewSection(section: Int, imageView: UIImageView) {
-        let sectionData = sectionItems[section]
+        let sectionData = sectionItems[section].rows
 
         if sectionData.count == 0 {
             currentExpandedSectionHeaderNumbers[section] = -1
             return
         } else {
-            UIView.animate(withDuration: 0.4, animations: {
+            UIView.animate(withDuration: 0.4) {
                 imageView.transform = CGAffineTransform(rotationAngle: (180.0 * CGFloat(Double.pi)) / 180.0)
-            })
+            }
 
             var indexesPath = [IndexPath]()
 
@@ -177,7 +191,7 @@ extension ViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if currentExpandedSectionHeaderNumbers[section] != -1 {
-            let arrayOfItems = sectionItems[section]
+            let arrayOfItems = sectionItems[section].rows
             return arrayOfItems.count
         } else {
             return 0
@@ -185,15 +199,15 @@ extension ViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sectionNames[section]
+        return sectionNames[section].title
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self))!
-        let section = sectionItems[indexPath.section]
+        let rows = sectionItems[indexPath.section].rows
         cell.backgroundColor = .white
         cell.textLabel?.textColor = .black
-        cell.textLabel?.text = section[indexPath.row]
+        cell.textLabel?.text = rows[indexPath.row]
         return cell
     }
 }
