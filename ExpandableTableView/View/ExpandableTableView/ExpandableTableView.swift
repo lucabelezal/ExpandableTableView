@@ -38,6 +38,7 @@ public final class ExpandableTableView: UITableView {
     //MARK: - Public Methods -
 
     public func expand(_ section: Int) {
+        collapseLastExpandedSectionIfNeeded()
         animate(withActionType: .expand, forSection: section)
     }
 
@@ -46,6 +47,13 @@ public final class ExpandableTableView: UITableView {
     }
 
     //MARK: - Private Methods -
+
+    private func collapseLastExpandedSectionIfNeeded() {
+        expandedSections.forEach { section in
+            guard section.value == true else { return }
+            collapse(section.key)
+        }
+    }
 
     private func animate(withActionType type: ExpandableActionType, forSection section: Int) {
         guard canExpand(section) else { return }
