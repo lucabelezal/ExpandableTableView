@@ -97,8 +97,6 @@ extension FAQViewController: ExpandableTableDataSource {
 //MARK: - ExpandableTableDelegate Protocol -
 
 extension FAQViewController: ExpandableTableDelegate {
-    func tableView(_ tableView: ExpandableTableView, changeForSection section: Int) {}
-
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return sectionItems[section].title
     }

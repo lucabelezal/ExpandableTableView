@@ -75,17 +75,18 @@ public final class ExpandableTableView: UITableView {
         headerCell?.isUserInteractionEnabled = false
 
         headerCellConformant?.changeState(cellReuseStatus: false)
-        expandableDelegate?.tableView(tableView, changeForSection: section)
+        //expandableDelegate?.tableView(tableView, changeForSection: section)
 
-        CATransaction.setCompletionBlock { [weak self] in
+        CATransaction.setCompletionBlock { //[weak self] in
             headerCellConformant?.changeState(cellReuseStatus: false)
 
-            self?.expandableDelegate?.tableView(tableView, changeForSection: section)
+            //self?.expandableDelegate?.tableView(tableView, changeForSection: section)
             headerCell?.isUserInteractionEnabled = true
         }
 
         beginUpdates()
-        if let sectionRowCount = expandableDataSource?.tableView(tableView, numberOfRowsInSection: section), sectionRowCount > 1 {
+        let numberOfRowsInSection = expandableDataSource?.tableView(tableView, numberOfRowsInSection: section)
+        if let sectionRowCount = numberOfRowsInSection, sectionRowCount > 1 {
 
             var indexesToProcess: [IndexPath] = []
 
@@ -93,9 +94,10 @@ public final class ExpandableTableView: UITableView {
                 indexesToProcess.append(IndexPath(row: row, section: section))
             }
 
-            if type == .expand {
+            switch type {
+            case .expand:
                 insertRows(at: indexesToProcess, with: .fade)
-            }else if type == .collapse {
+            case .collapse:
                 deleteRows(at: indexesToProcess, with: .fade)
             }
         }
@@ -114,6 +116,33 @@ public final class ExpandableTableView: UITableView {
     private func assign(_ section: Int, asExpanded: Bool) {
         expandedSections[section] = asExpanded
     }
+
+    //MARK: - Verify Protocol -
+
+    private func verifyProtocol(_ aProtocol: Protocol, contains aSelector: Selector) -> Bool {
+          return protocol_getMethodDescription(aProtocol, aSelector, true, true).name != nil ||
+              protocol_getMethodDescription(aProtocol, aSelector, false, true).name != nil
+      }
+
+      override public func responds(to aSelector: Selector!) -> Bool {
+          if verifyProtocol(UITableViewDataSource.self, contains: aSelector) {
+              return (super.responds(to: aSelector)) || (expandableDataSource?.responds(to: aSelector) ?? false)
+
+          } else if verifyProtocol(UITableViewDelegate.self, contains: aSelector) {
+              return (super.responds(to: aSelector)) || (expandableDelegate?.responds(to: aSelector) ?? false)
+          }
+          return super.responds(to: aSelector)
+      }
+
+      override public func forwardingTarget(for aSelector: Selector!) -> Any? {
+          if verifyProtocol(UITableViewDataSource.self, contains: aSelector) {
+              return expandableDataSource
+
+          } else if verifyProtocol(UITableViewDelegate.self, contains: aSelector) {
+              return expandableDelegate
+          }
+          return super.forwardingTarget(for: aSelector)
+      }
 }
 
 //MARK: - UITableViewDataSource Protocol -
@@ -154,35 +183,6 @@ extension ExpandableTableView: UITableViewDelegate {
 
         guard canExpand(indexPath.section), indexPath.row == 0 else { return }
         didExpand(indexPath.section) ? collapse(indexPath.section) : expand(indexPath.section)
-    }
-}
-
-//MARK: - Helper Protocol -
-
-extension ExpandableTableView {
-    private func verifyProtocol(_ aProtocol: Protocol, contains aSelector: Selector) -> Bool {
-        return protocol_getMethodDescription(aProtocol, aSelector, true, true).name != nil ||
-            protocol_getMethodDescription(aProtocol, aSelector, false, true).name != nil
-    }
-
-    override public func responds(to aSelector: Selector!) -> Bool {
-        if verifyProtocol(UITableViewDataSource.self, contains: aSelector) {
-            return (super.responds(to: aSelector)) || (expandableDataSource?.responds(to: aSelector) ?? false)
-
-        } else if verifyProtocol(UITableViewDelegate.self, contains: aSelector) {
-            return (super.responds(to: aSelector)) || (expandableDelegate?.responds(to: aSelector) ?? false)
-        }
-        return super.responds(to: aSelector)
-    }
-
-    override public func forwardingTarget(for aSelector: Selector!) -> Any? {
-        if verifyProtocol(UITableViewDataSource.self, contains: aSelector) {
-            return expandableDataSource
-
-        } else if verifyProtocol(UITableViewDelegate.self, contains: aSelector) {
-            return expandableDelegate
-        }
-        return super.forwardingTarget(for: aSelector)
     }
 }
 
