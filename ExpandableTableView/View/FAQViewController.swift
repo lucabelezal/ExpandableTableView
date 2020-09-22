@@ -43,6 +43,14 @@ final class FAQViewController: UIViewController {
         super.viewDidLoad()
         presenter?.fetchQuestions()
     }
+
+    private func isFirstRowAt(indexPath: IndexPath) -> Bool {
+        guard let firstRow = sectionItems[indexPath.section].rows.first else {
+            return false
+        }
+
+        return sectionItems[indexPath.section].rows[indexPath.row] != firstRow
+    }
 }
 
 extension FAQViewController: FAQViewControllerProtocol {
@@ -62,12 +70,10 @@ extension FAQViewController: FAQViewControllerProtocol {
 extension FAQViewController: ExpandableTableDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        if sectionItems.isEmpty { return 0 }
         return sectionItems.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if sectionItems.isEmpty { return 0 }
         return sectionItems[section].rows.count
     }
 
@@ -103,6 +109,12 @@ extension FAQViewController: ExpandableTableDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
+        
+        guard isFirstRowAt(indexPath: indexPath) else { return }
+
+        let viewController = UIViewController()
+        viewController.view.backgroundColor = .green
+        navigationController?.pushViewController(viewController, animated: true)
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

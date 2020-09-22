@@ -27,8 +27,15 @@ final class FAQPresenter: FAQPresenterProtocol {
         for (index, item) in items.enumerated() {
             for section in item.section {
                 var title: String?
-                if section == items[index].section.first { title = item.title }
-                sectionItems += [FAQSectionViewModel(title: title, rows: transformSectionIntoRows(section: section))]
+                if section == items[index].section.first {
+                    title = item.title
+                }
+                sectionItems += [
+                    FAQSectionViewModel(
+                        title: title,
+                        rows: transformSectionIntoRows(section: section)
+                    )
+                ]
             }
         }
 
