@@ -7,17 +7,49 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C0C0935F-21B6-4413-9E07-AC9F31F99308"
+            uuid = "C6EEA5DB-D441-423E-89E6-C3D81189337D"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ExpandableTableView/View/Collapse/CollapseViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
             landmarkName = "reloadTableView(_:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "C6EEA5DB-D441-423E-89E6-C3D81189337D - d98c51d41187c5d5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ExpandableTableView.CollapseView.reloadTableView(() -&gt; ()) -&gt; ()"
+                  moduleName = "ExpandableTableView"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/l.b.do.nascimento/GITHUB/ExpandableTableView/ExpandableTableView/View/Collapse/CollapseViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "133"
+                  endingLineNumber = "133"
+                  offsetFromSymbolStart = "80">
+               </Location>
+               <Location
+                  uuid = "C6EEA5DB-D441-423E-89E6-C3D81189337D - 446053fe3361e3be"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in ExpandableTableView.CollapseView.reloadTableView(() -&gt; ()) -&gt; ()"
+                  moduleName = "ExpandableTableView"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/l.b.do.nascimento/GITHUB/ExpandableTableView/ExpandableTableView/View/Collapse/CollapseViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "133"
+                  endingLineNumber = "133"
+                  offsetFromSymbolStart = "29">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

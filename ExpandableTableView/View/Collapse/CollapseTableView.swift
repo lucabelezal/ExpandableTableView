@@ -9,6 +9,17 @@ open class CollapseTableView: UITableView {
     public var shouldHandleHeadersTap = true
     public var didTapSectionHeaderView: ((_ sectionIndex: Int, _ isOpen: Bool) -> Void)?
 
+    override open var contentSize:CGSize {
+        didSet {
+            self.invalidateIntrinsicContentSize()
+        }
+    }
+
+    override open var intrinsicContentSize: CGSize {
+        self.layoutIfNeeded()
+        return CGSize(width: UIView.noIntrinsicMetric, height: contentSize.height)
+    }
+
     override open var dataSource: UITableViewDataSource? {
         set {
             self.collapseDataSource = newValue
@@ -77,9 +88,14 @@ open class CollapseTableView: UITableView {
         if let headerView = headerView(forSection: sectionIndex) as? CollapseSectionHeader {
             headerView.updateViewForOpenState(animated: true)
         }
+
         if animated {
             if let indexPathsToInsert = indexPathsForRowsInSectionAtIndex(sectionIndex) {
-                insertRows(at: indexPathsToInsert, with: .top)
+                CATransaction.begin()
+                beginUpdates()
+                insertRows(at: indexPathsToInsert, with: .fade)
+                endUpdates()
+                CATransaction.commit()
             }
         } else {
             reloadData()
@@ -94,9 +110,15 @@ open class CollapseTableView: UITableView {
         if let headerView = headerView(forSection: sectionIndex) as? CollapseSectionHeader {
             headerView.updateViewForCloseState(animated: true)
         }
+
+
         if animated {
             if let indexPathsToDelete = indexPathsForRowsInSectionAtIndex(sectionIndex) {
-                deleteRows(at: indexPathsToDelete, with: .top)
+                CATransaction.begin()
+                beginUpdates()
+                deleteRows(at: indexPathsToDelete, with: .fade)
+                endUpdates()
+                CATransaction.commit()
             }
         } else {
             reloadData()
