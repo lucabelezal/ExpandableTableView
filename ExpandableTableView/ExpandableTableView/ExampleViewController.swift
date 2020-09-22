@@ -1,21 +1,15 @@
 import UIKit
 
-struct FAQSectionViewModel {
-    let title: String?
-    let rows: [String]
-}
+final class ExampleViewController: UIViewController {
 
-class ExpyExampleViewController: UIViewController {
-
-    var faqs: [FAQModel] = []
-    var viewModels: [FAQSectionViewModel] = [] {
+    private var sectionNames: [FAQModel] = []
+    private var sectionItems: [FAQSectionViewModel] = [] {
         didSet {
             expandableTableView.reloadData()
         }
     }
 
-    let expandableTableView: ExpyTableView = ExpyTableView()
-
+    private let expandableTableView = ExpandableTableView()
     private let presenter: FAQPresenterProtocol?
 
     init(presenter: FAQPresenterProtocol?) {
@@ -31,6 +25,14 @@ class ExpyExampleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        expandableTableView.dataSource = self
+        expandableTableView.delegate = self
+        expandableTableView.separatorStyle = .none
+        expandableTableView.register(ExpandableCell.self)
+        expandableTableView.rowHeight = UITableView.automaticDimension
+        expandableTableView.estimatedRowHeight = 56
+        expandableTableView.tableFooterView = UIView()
+
         view.addSubview(expandableTableView)
         expandableTableView.backgroundColor = .lightGray
         expandableTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -41,21 +43,7 @@ class ExpyExampleViewController: UIViewController {
             expandableTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
 
-                expandableTableView.dataSource = self
-                expandableTableView.delegate = self
-                expandableTableView.separatorStyle = .none
-
-                expandableTableView.register(ExpandableCell.self)
-                expandableTableView.rowHeight = UITableView.automaticDimension
-                expandableTableView.estimatedRowHeight = 44
-
-                expandableTableView.expandingAnimation = .fade
-                expandableTableView.collapsingAnimation = .fade
-
-                expandableTableView.tableFooterView = UIView()
-
-                navigationItem.title = "FAQs"
-
+        navigationItem.title = "FAQs"
         presenter?.fetchQuestions()
     }
 
@@ -65,9 +53,9 @@ class ExpyExampleViewController: UIViewController {
 
 }
 
-extension ExpyExampleViewController: FAQViewControllerProtocol {
+extension ExampleViewController: FAQViewControllerProtocol {
     func showView(withFAQs faqs: [FAQModel]) {
-        self.faqs = faqs
+        self.sectionNames = faqs
 
         var sections: [FAQSectionViewModel] = []
 
@@ -82,7 +70,7 @@ extension ExpyExampleViewController: FAQViewControllerProtocol {
             }
         }
 
-        self.viewModels = sections
+        self.sectionItems = sections
     }
 
     func showErrorView(withError error: Error) {}
@@ -91,57 +79,61 @@ extension ExpyExampleViewController: FAQViewControllerProtocol {
 }
 
 //MARK: UITableView Data Source Methods
-extension ExpyExampleViewController {
+
+extension ExampleViewController {
     func numberOfSections(in tableView: UITableView) -> Int {
-        if viewModels.isEmpty { return 0 }
-        return viewModels.count
+        if sectionItems.isEmpty { return 0 }
+        return sectionItems.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if viewModels.isEmpty { return 0 }
-        return viewModels[section].rows.count
+        if sectionItems.isEmpty { return 0 }
+        return sectionItems[section].rows.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ExpandableCell.self)) as! ExpandableCell
-        let title = viewModels[indexPath.section].rows[indexPath.row]
-         cell.update(title: title)
-         cell.arrowImageView.image = nil
-         cell.layoutMargins = UIEdgeInsets.zero
-         cell.backgroundColor = .blue
-         return cell
+        let title = sectionItems[indexPath.section].rows[indexPath.row]
+        cell.update(title: title)
+        cell.arrowImageView.image = nil
+        cell.layoutMargins = UIEdgeInsets.zero
+        cell.backgroundColor = .blue
+        return cell
     }
 }
 
 //MARK: ExpyTableViewDataSourceMethods
-extension ExpyExampleViewController: ExpyTableViewDataSource {
 
-    func tableView(_ tableView: ExpyTableView, canExpandSection section: Int) -> Bool {
+extension ExampleViewController: ExpandableTableDataSource {
+
+    func tableView(_ tableView: ExpandableTableView, canExpandSection section: Int) -> Bool {
         return true
     }
 
-    func tableView(_ tableView: ExpyTableView, expandableCellForSection section: Int) -> UITableViewCell {
+    func tableView(_ tableView: ExpandableTableView, expandableCellForSection section: Int) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ExpandableCell.self)) as! ExpandableCell
-        cell.textLabel?.text = viewModels[section].rows.first
-        cell.layoutMargins = UIEdgeInsets.zero
+        cell.textLabel?.text = sectionItems[section].rows.first
+        cell.layoutMargins = .zero
         cell.backgroundColor = .orange
+        cell.selectionStyle = .none
         return cell
     }
 }
 
 //MARK: ExpyTableView delegate methods
-extension ExpyExampleViewController: ExpyTableViewDelegate {
-    func tableView(_ tableView: ExpyTableView, changeForSection section: Int) {}
+
+extension ExampleViewController: ExpandableTableDelegate {
+    func tableView(_ tableView: ExpandableTableView, changeForSection section: Int) {}
 }
 
-extension ExpyExampleViewController {
+extension ExampleViewController {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return viewModels[section].title
+        return sectionItems[section].title
     }
 }
 
-extension ExpyExampleViewController {
+extension ExampleViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
     }

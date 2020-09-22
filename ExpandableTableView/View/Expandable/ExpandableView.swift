@@ -2,15 +2,16 @@ import UIKit
 
 final class ExpandableView: UIView {
 
-    private var tableView: UITableView = UITableView()
+    var hiddenSections = Set<Int>()
+    let tableViewData = [
+        ["1", "2", "3", "4", "5"],
+        ["1", "2", "3", "4", "5"],
+        ["1", "2", "3", "4", "5"],
+        ["1", "2", "3", "4", "5"],
+        ["1", "2", "3", "4", "5"]
+    ]
 
-    private var hiddenSections = Set<Int>()
-
-    var viewModels: [FAQViewModel] = [] {
-        didSet {
-            tableView.reloadData()
-        }
-    }
+    let tableView: UITableView = UITableView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,10 +22,6 @@ final class ExpandableView: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-//    func update(withFAQs faqs: [FAQModel]) {
-//        self.faqs = faqs
-//    }
 }
 
 extension ExpandableView: ViewCodable {
@@ -59,7 +56,7 @@ extension ExpandableView: ViewCodable {
         func indexPathsForSection() -> [IndexPath] {
             var indexPaths = [IndexPath]()
 
-            for row in 0 ..< viewModels[section].rows.count {
+            for row in 0 ..< tableViewData[section].count {
                 indexPaths.append(IndexPath(row: row, section: section))
             }
 
@@ -68,49 +65,44 @@ extension ExpandableView: ViewCodable {
 
         if hiddenSections.contains(section) {
             hiddenSections.remove(section)
-            tableView.beginUpdates()
             tableView.insertRows(at: indexPathsForSection(), with: .fade)
-            tableView.endUpdates()
         } else {
             hiddenSections.insert(section)
-            tableView.beginUpdates()
             tableView.deleteRows(at: indexPathsForSection(), with: .fade)
-            tableView.endUpdates()
         }
     }
 }
 
 extension ExpandableView: UITableViewDataSource {
     func numberOfSections(in _: UITableView) -> Int {
-        return viewModels.count
+        return tableViewData.count
     }
 
     func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
         if hiddenSections.contains(section) {
             return 0
         }
-        return viewModels[section].rows.count
+        return tableViewData[section].count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self))!
-        cell.selectionStyle = .none
-        //cell.textLabel?.text = viewModels[indexPath.section].rows[indexPath.row].first
+        cell.textLabel?.text = tableViewData[indexPath.section][indexPath.row]
         return cell
-    }
-
-    func tableView(_: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let sectionButton = UIButton()
-        sectionButton.setTitle(viewModels[section].title, for: .normal)
-        sectionButton.backgroundColor = .systemBlue
-        sectionButton.tag = section
-        sectionButton.addTarget(self, action: #selector(hideSection(sender:)), for: .touchUpInside)
-        return sectionButton
     }
 }
 
 extension ExpandableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
+    }
+
+    func tableView(_: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let sectionButton = UIButton()
+        sectionButton.setTitle(String(section), for: .normal)
+        sectionButton.backgroundColor = .systemBlue
+        sectionButton.tag = section
+        sectionButton.addTarget(self, action: #selector(hideSection(sender:)), for: .touchUpInside)
+        return sectionButton
     }
 }
