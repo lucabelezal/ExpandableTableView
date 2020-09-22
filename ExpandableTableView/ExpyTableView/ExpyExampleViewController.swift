@@ -1,13 +1,14 @@
 import UIKit
 
-struct FAQTestViewModel {
+struct FAQSectionViewModel {
     let title: String?
     let rows: [String]
 }
 
 class ExpyExampleViewController: UIViewController {
 
-    var viewModels: [FAQTestViewModel] = [] {
+    var faqs: [FAQModel] = []
+    var viewModels: [FAQSectionViewModel] = [] {
         didSet {
             expandableTableView.reloadData()
         }
@@ -58,23 +59,30 @@ class ExpyExampleViewController: UIViewController {
         presenter?.fetchQuestions()
     }
 
-    func transformModel(section: Section) -> [String] {
-        return [section.title] + section.questions.compactMap { $0.title}
+    func transformRows(section: Section) -> [String] {
+        return [section.title] + section.questions.compactMap { $0.title }
     }
 
 }
 
 extension ExpyExampleViewController: FAQViewControllerProtocol {
     func showView(withFAQs faqs: [FAQModel]) {
+        self.faqs = faqs
 
-        let sections: [[String]] = faqs.enumerated().compactMap { (index, element) -> [String] in
-            return transformModel(section: element.section[index])
+        var sections: [FAQSectionViewModel] = []
+
+
+        for (index, element) in faqs.enumerated() {
+            for section in faqs[index].section {
+                var title: String?
+                if section == faqs[index].section.first {
+                    title = element.title
+                }
+                sections += [FAQSectionViewModel(title: title, rows: transformRows(section: section))]
+            }
         }
 
-        let data: [FAQTestViewModel] = sections.enumerated().compactMap { index, rows in
-            return FAQTestViewModel(title: faqs[index].title, rows: rows)
-        }
-        self.viewModels = data
+        self.viewModels = sections
     }
 
     func showErrorView(withError error: Error) {}
@@ -142,83 +150,3 @@ extension ExpyExampleViewController {
         return UITableView.automaticDimension
     }
 }
-
-//    let first: [[String]] = [
-//        ["F SECTION 1 (2 Items)", "ROW 1", "ROW 2"],
-//        ["F SECTION 2 (3 Items)", "ROW 1", "ROW 2", "ROW 3",]
-//    ]
-//
-//    let second: [[String]] = [
-//        ["S SECTION 1 (4 Items)", "ROW 1", "ROW 2", "ROW 3", "ROW 4"],
-//        ["S SECTION 2 (1 Items)", "ROW 1"],
-//        ["S SECTION 3 (2 Items)", "ROW 1", "ROW 2"],
-//        ["S SECTION 4 (1 Items)", "ROW 1"],
-//        ["S SECTION 5 (1 Items)", "ROW 1"],
-//        ["S SECTION 6 (1 Items)", "ROW 1"],
-//    ]
-//
-//    let third: [[String]] = [
-//        ["T SECTION 1 (2 Items)", "ROW 1", "ROW 2"],
-//        ["T SECTION 2 (3 Items)", "ROW 1", "ROW 2", "ROW 3",]
-//    ]
-//
-//    let fourth: [[String]] = [
-//        ["FTH SECTION 1 (4 Items)", "ROW 1", "ROW 2", "ROW 3", "ROW 4"],
-//        ["FTH SECTION 2 (1 Items)", "ROW 1"]
-//    ]
-//
-//    var sampleData: [[String]] = []
-
-//    func transformModel(faqModels: [FAQModel]) -> [FAQViewModel] {
-//        return faqModels.enumerated().compactMap { (index, faq) -> FAQViewModel in
-//            let rows: [[String]] = faq.section.compactMap { section -> [String] in
-//                return [section.title] + section.questions.compactMap { $0.title}
-//            }
-//            return FAQViewModel(title: faq.title, rows: rows)
-//        }
-//    }
-
-//        let models: [[FAQViewModel]] = rows.enumerated().compactMap { (index, element) -> [FAQViewModel] in
-//            return [FAQViewModel(title: "", rows: element[index])]
-//        }
-
-//            [
-//            FAQViewModel(title: "DÚVIDAS GERAIS", rows: rows),
-//            FAQViewModel(title: "PROGRAMA DE RELACIONAMENTO VIVA", rows: [])
-//        ]
-
-        //let dataTest: [FAQTestViewModel] = [FAQTestViewModel(models: models)]
-
-//        let data: [FAQTestViewModel] = [
-//            FAQTestViewModel(title: "DÚVIDAS GERAIS", sections: []),
-//            FAQTestViewModel(title: "PROGRAMA DE RELACIONAMENTO VIVA", sections: [])
-//        ]
-
-//        let data: [FAQModel] = [
-//            FAQModel(title: "DÚVIDAS GERAIS", section: [Section(title: "Cadastro", questions: [Question(id: 0, title: "1"), Question(id: 1, title: "2")])]),
-//            FAQModel(title: "PROGRAMA DE RELACIONAMENTO VIVA", section: [Section(title: "Adesão", questions: [Question(id: 0, title: "1")])])
-//        ]
-
-//        let viewModels = faqs.enumerated().compactMap { (index, faq) -> FAQViewModel in
-//            let rows: [[String]] = faq.section.compactMap { section -> [String] in
-//                return [section.title] + section.questions.compactMap { $0.title}
-//            }
-//            return FAQViewModel(title: faq.title, rows: rows)
-//        }
-
-//        let section1 = [
-//            ["titulo", "queation 1"],
-//            ["titulo", "queation 1"],
-//        ]
-//
-//        let section2 = [
-//            [""],
-//            [""],
-//        ]
-
-//        let viewModels = faqs.enumerated().compactMap { (index, faq) -> FAQViewModel in
-//            var rows: [[String]] = []
-//            rows += [[faq.section[index].title] + faq.section[index].questions.compactMap { $0.title}]
-//
-//            return FAQViewModel(title: faq.title, rows: rows)
-//        }
