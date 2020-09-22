@@ -65,23 +65,23 @@ final class ViewController: UIViewController {
 }
 
 extension ViewController: FAQViewControllerProtocol {
-    func showView(withFAQs faqs: [FAQModel]) {
-        self.sectionNames = faqs
-        self.sectionNames.forEach { _ in currentExpandedSectionHeaderNumbers.append(-1) }
-
-        var sections: [FAQSectionViewModel] = []
-
-        for (index, element) in faqs.enumerated() {
-            for section in faqs[index].section {
-                var title: String?
-                if section == faqs[index].section.first {
-                    title = element.title
-                }
-                sections += [FAQSectionViewModel(title: title, rows: transformRows(section: section))]
-            }
-        }
-
-        self.sectionItems = sections
+    func showView(sectionNames: [FAQModel], sectionItems: [FAQSectionViewModel]) {
+//        self.sectionNames = faqs
+//        self.sectionNames.forEach { _ in currentExpandedSectionHeaderNumbers.append(-1) }
+//
+//        var sections: [FAQSectionViewModel] = []
+//
+//        for (index, element) in faqs.enumerated() {
+//            for section in faqs[index].section {
+//                var title: String?
+//                if section == faqs[index].section.first {
+//                    title = element.title
+//                }
+//                sections += [FAQSectionViewModel(title: title, rows: transformRows(section: section))]
+//            }
+//        }
+//
+//        self.sectionItems = sections
     }
 
     func showErrorView(withError error: Error) {}

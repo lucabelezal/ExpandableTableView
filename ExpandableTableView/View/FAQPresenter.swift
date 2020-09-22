@@ -7,14 +7,49 @@ protocol FAQPresenterProtocol {
 final class FAQPresenter: FAQPresenterProtocol {
     weak var view: FAQViewControllerProtocol?
 
-    func fetchQuestions() {
+    private var sectionNames: [FAQModel] = []
+    private var sectionItems: [FAQSectionViewModel] = []
 
+    func fetchQuestions() {
         let jsonData = JSONHelper.getDataFrom(json: "FAQs")!
         do {
-            let faqs = try JSONDecoder().decode([FAQModel].self, from: jsonData)
-            view?.showView(withFAQs: faqs)
+            let items = try JSONDecoder().decode([FAQModel].self, from: jsonData)
+            handleSuccessRequest(FAQItems: items)
         } catch(let error) {
             view?.showErrorView(withError: error)
         }
     }
+
+    private func handleSuccessRequest(FAQItems items: [FAQModel]) {
+
+        sectionNames = items
+
+        for (index, element) in items.enumerated() {
+            for section in items[index].section {
+                var title: String?
+                if section == items[index].section.first {
+                    title = element.title
+                }
+                sectionItems += [
+                    FAQSectionViewModel(
+                        title: title,
+                        rows: transformSectionIntoRows(section: section)
+                    )
+                ]
+            }
+        }
+
+        view?.showView(sectionNames: sectionNames, sectionItems: sectionItems)
+    }
+
+    private func transformSectionIntoRows(section: Section) -> [String] {
+        return [section.title] + section.questions.compactMap { $0.title }
+    }
 }
+
+
+
+
+
+
+

@@ -2,19 +2,31 @@ import UIKit
 
 final class ExampleViewController: UIViewController {
 
-    private var sectionNames: [FAQModel] = []
-    private var sectionItems: [FAQSectionViewModel] = [] {
-        didSet {
-            expandableTableView.reloadData()
-        }
-    }
+    private lazy var expandableTableView: ExpandableTableView = {
+        let tableView = ExpandableTableView()
+        tableView.backgroundColor = .lightGray
+        tableView.separatorStyle = .none
+        tableView.register(ExpandableCell.self)
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 56
+        tableView.tableFooterView = UIView()
+        tableView.dataSource = self
+        tableView.delegate = self
+        return tableView
+    }()
 
-    private let expandableTableView = ExpandableTableView()
     private let presenter: FAQPresenterProtocol?
+    private var sectionNames: [FAQModel]
+    private var sectionItems: [FAQSectionViewModel]
 
     init(presenter: FAQPresenterProtocol?) {
         self.presenter = presenter
+        self.sectionNames = []
+        self.sectionItems = []
         super.init(nibName: nil, bundle: nil)
+        navigationItem.title = "FAQs"
+        setupView()
+        presenter?.fetchQuestions()
     }
 
     @available(*, unavailable)
@@ -22,19 +34,8 @@ final class ExampleViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        expandableTableView.dataSource = self
-        expandableTableView.delegate = self
-        expandableTableView.separatorStyle = .none
-        expandableTableView.register(ExpandableCell.self)
-        expandableTableView.rowHeight = UITableView.automaticDimension
-        expandableTableView.estimatedRowHeight = 56
-        expandableTableView.tableFooterView = UIView()
-
+    private func setupView() {
         view.addSubview(expandableTableView)
-        expandableTableView.backgroundColor = .lightGray
         expandableTableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             expandableTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -42,35 +43,18 @@ final class ExampleViewController: UIViewController {
             expandableTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             expandableTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
-
-        navigationItem.title = "FAQs"
-        presenter?.fetchQuestions()
     }
 
-    func transformRows(section: Section) -> [String] {
+    private func transformRows(section: Section) -> [String] {
         return [section.title] + section.questions.compactMap { $0.title }
     }
-
 }
 
 extension ExampleViewController: FAQViewControllerProtocol {
-    func showView(withFAQs faqs: [FAQModel]) {
-        self.sectionNames = faqs
-
-        var sections: [FAQSectionViewModel] = []
-
-
-        for (index, element) in faqs.enumerated() {
-            for section in faqs[index].section {
-                var title: String?
-                if section == faqs[index].section.first {
-                    title = element.title
-                }
-                sections += [FAQSectionViewModel(title: title, rows: transformRows(section: section))]
-            }
-        }
-
-        self.sectionItems = sections
+    func showView(sectionNames: [FAQModel], sectionItems: [FAQSectionViewModel]) {
+        self.sectionNames = sectionNames
+        self.sectionItems = sectionItems
+        self.expandableTableView.reloadData()
     }
 
     func showErrorView(withError error: Error) {}

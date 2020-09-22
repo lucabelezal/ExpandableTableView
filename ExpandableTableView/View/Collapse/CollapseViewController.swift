@@ -35,10 +35,9 @@ class CollapseViewController: UIViewController {
 }
 
 extension CollapseViewController: FAQViewControllerProtocol {
-    func showView(withFAQs faqs: [FAQModel]) {
+    func showView(sectionNames: [FAQModel], sectionItems: [FAQSectionViewModel]) {
         scrollableStack.update(with: [])
     }
-
     func showErrorView(withError error: Error) {}
     func showEmptyView() {}
 }
