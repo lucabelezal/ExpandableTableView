@@ -36,22 +36,10 @@ class CollapseViewController: UIViewController {
 
 extension CollapseViewController: FAQViewControllerProtocol {
     func showView(withFAQs faqs: [FAQModel]) {
-
-        let viewModels = faqs.enumerated().compactMap { (index, faq) -> FAQViewModel in
-            var rows: [String] = []
-            for (index, element) in faq.section.enumerated() {
-                rows += [element.title] + element.questions.compactMap { $0.title}
-            }
-            return FAQViewModel(title: faq.title, rows: [])
-        }
-
-        let view = factory.create(viewModels: viewModels)
-
-        scrollableStack.update(with: [view])
+        scrollableStack.update(with: [])
     }
 
     func showErrorView(withError error: Error) {}
-
     func showEmptyView() {}
 }
 
@@ -122,7 +110,7 @@ class CollapseView: UIView {
         tableHeaderView.backgroundColor = .purple
         tableView.tableHeaderView = tableHeaderView
 
-        //tableView.tableFooterView = UIView(frame: .zero)
+        tableView.tableFooterView = UIView(frame: .zero)
 
         tableView.register(UITableViewCell.self)
         tableView.register(SectionHeaderView.self, forHeaderFooterViewReuseIdentifier: SectionHeaderView.reuseIdentifier)
@@ -138,22 +126,21 @@ class CollapseView: UIView {
 
 extension CollapseView: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return viewModels.count//sections.count
+        return viewModels.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModels[section].rows.count//sections[section].questions.count
+        return viewModels[section].rows.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self))!
-        //cell.textLabel?.text = viewModels[indexPath.section].rows[indexPath.row].first//sections[indexPath.section].questions[indexPath.row].title
         return cell
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view: SectionHeaderView = tableView.dequeueReusableHeaderFooterView(withIdentifier: SectionHeaderView.reuseIdentifier) as! SectionHeaderView
-        view.textLabel?.text = viewModels[section].title//sections[section].title
+        view.textLabel?.text = viewModels[section].title
         return view
     }
 
@@ -162,10 +149,10 @@ extension CollapseView: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 44//UITableView.automaticDimension
+        return 44
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 44 //UITableView.automaticDimension
+        return 44
     }
 }

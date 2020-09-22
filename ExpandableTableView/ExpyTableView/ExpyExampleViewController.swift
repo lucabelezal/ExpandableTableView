@@ -132,7 +132,7 @@ extension ExpyExampleViewController: ExpyTableViewDataSource {
 
 //MARK: ExpyTableView delegate methods
 extension ExpyExampleViewController: ExpyTableViewDelegate {
-    func tableView(_ tableView: ExpyTableView, expyState state: ExpyState, changeForSection section: Int) {}
+    func tableView(_ tableView: ExpyTableView, changeForSection section: Int) {}
 }
 
 extension ExpyExampleViewController {

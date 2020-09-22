@@ -76,13 +76,13 @@ extension ExpyTableView {
 		CATransaction.begin()
 		headerCell?.isUserInteractionEnabled = false
 
-		headerCellConformant?.changeState((type == .expand ? .willExpand : .willCollapse), cellReuseStatus: false)
-		expyDelegate?.tableView(tableView, expyState: (type == .expand ? .willExpand : .willCollapse), changeForSection: section)
+		headerCellConformant?.changeState(cellReuseStatus: false)
+		expyDelegate?.tableView(tableView, changeForSection: section)
 
 		CATransaction.setCompletionBlock {
-			headerCellConformant?.changeState((type == .expand ? .didExpand : .didCollapse), cellReuseStatus: false)
+			headerCellConformant?.changeState(cellReuseStatus: false)
 			
-			self.expyDelegate?.tableView(tableView, expyState: (type == .expand ? .didExpand : .didCollapse), changeForSection: section)
+			self.expyDelegate?.tableView(tableView, changeForSection: section)
 			headerCell?.isUserInteractionEnabled = true
 		}
 		
@@ -131,11 +131,11 @@ extension ExpyTableView: UITableViewDataSource {
 		
 		DispatchQueue.main.async {
 			if self.didExpand(indexPath.section) {
-				headerCellConformant.changeState(.willExpand, cellReuseStatus: true)
-				headerCellConformant.changeState(.didExpand, cellReuseStatus: true)
+				headerCellConformant.changeState(cellReuseStatus: true)
+				headerCellConformant.changeState(cellReuseStatus: true)
 			}else {
-				headerCellConformant.changeState(.willCollapse, cellReuseStatus: true)
-				headerCellConformant.changeState(.didCollapse, cellReuseStatus: true)
+				headerCellConformant.changeState(cellReuseStatus: true)
+				headerCellConformant.changeState(cellReuseStatus: true)
 			}
 		}
 		return headerCell

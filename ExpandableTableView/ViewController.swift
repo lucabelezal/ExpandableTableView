@@ -23,15 +23,7 @@ final class ViewController: UIViewController {
             expandableTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
 
-        sectionNames = ["Asia", "Europe", "Africa"]
-        sectionItems = [
-            ["Pakistan", "India", "Srilanka", "China", "Bangladesh", "Japan"],
-            ["Germany", "Italy", "France", "Greece"],
-            ["Algeria", "Nigeria", "Senegal"]
-        ]
-        sectionNames.forEach { _ in
-            currentExpandedSectionHeaderNumbers.append(-1)
-        }
+        currentExpandedSectionHeaderNumbers.append(-1)
 
         expandableTableView.register(UITableViewCell.self)
         expandableTableView.delegate = self
@@ -47,7 +39,40 @@ final class ViewController: UIViewController {
 
         expandableTableView.tableFooterView = footerView
         expandableTableView.tableHeaderView = headerView
+
+        presenter?.fetchQuestions()
     }
+
+    private let presenter: FAQPresenterProtocol?
+
+    init(presenter: FAQPresenterProtocol?) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension ViewController: FAQViewControllerProtocol {
+    func showView(withFAQs faqs: [FAQModel]) {
+        sectionNames = ["Asia", "Europe", "Africa"]
+        sectionItems = [
+            ["Pakistan", "India", "Srilanka", "China", "Bangladesh", "Japan"],
+            ["Germany", "Italy", "France", "Greece"],
+            ["Algeria", "Nigeria", "Senegal"]
+        ]
+        sectionNames.forEach { _ in
+            currentExpandedSectionHeaderNumbers.append(-1)
+        }
+        expandableTableView.reloadData()
+    }
+
+    func showErrorView(withError error: Error) {}
+
+    func showEmptyView() {}
 }
 
 // MARK: - Expand / Collapse Methods
