@@ -78,9 +78,10 @@ extension ExampleViewController: FAQViewControllerProtocol {
     func showEmptyView() {}
 }
 
-//MARK: UITableView Data Source Methods
+//MARK: - ExpandableTableDataSource Protocol -
 
-extension ExampleViewController {
+extension ExampleViewController: ExpandableTableDataSource {
+
     func numberOfSections(in tableView: UITableView) -> Int {
         if sectionItems.isEmpty { return 0 }
         return sectionItems.count
@@ -92,7 +93,6 @@ extension ExampleViewController {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ExpandableCell.self)) as! ExpandableCell
         let title = sectionItems[indexPath.section].rows[indexPath.row]
         cell.update(title: title)
@@ -101,11 +101,6 @@ extension ExampleViewController {
         cell.backgroundColor = .blue
         return cell
     }
-}
-
-//MARK: ExpyTableViewDataSourceMethods
-
-extension ExampleViewController: ExpandableTableDataSource {
 
     func tableView(_ tableView: ExpandableTableView, canExpandSection section: Int) -> Bool {
         return true
@@ -121,19 +116,15 @@ extension ExampleViewController: ExpandableTableDataSource {
     }
 }
 
-//MARK: ExpyTableView delegate methods
+//MARK: - ExpandableTableDelegate Protocol -
 
 extension ExampleViewController: ExpandableTableDelegate {
     func tableView(_ tableView: ExpandableTableView, changeForSection section: Int) {}
-}
 
-extension ExampleViewController {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return sectionItems[section].title
     }
-}
 
-extension ExampleViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
     }
