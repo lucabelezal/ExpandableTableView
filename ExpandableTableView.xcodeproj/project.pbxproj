@@ -26,6 +26,9 @@
 		B33987D92519591700935D79 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33987D82519591700935D79 /* SectionHeaderView.swift */; };
 		B33987DB25196E1300935D79 /* CollapseTableViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33987DA25196E1300935D79 /* CollapseTableViewFactory.swift */; };
 		B33987E3251971C000935D79 /* BrMScrollableStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33987E2251971C000935D79 /* BrMScrollableStack.swift */; };
+		B33987EB2519902100935D79 /* ExpyTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33987E62519902100935D79 /* ExpyTableView.swift */; };
+		B33987ED2519902100935D79 /* ExpyAbstractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33987E82519902100935D79 /* ExpyAbstractions.swift */; };
+		B33987F02519906000935D79 /* ExpyExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33987EF2519906000935D79 /* ExpyExampleViewController.swift */; };
 		B35851F32517F06500259FE0 /* FAQs.json in Resources */ = {isa = PBXBuildFile; fileRef = B35851F22517F06500259FE0 /* FAQs.json */; };
 		B35851F52517F32200259FE0 /* FAQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35851F42517F32200259FE0 /* FAQViewController.swift */; };
 		B35851FD2517F34F00259FE0 /* FAQPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35851FC2517F34F00259FE0 /* FAQPresenter.swift */; };
@@ -54,6 +57,9 @@
 		B33987D82519591700935D79 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
 		B33987DA25196E1300935D79 /* CollapseTableViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapseTableViewFactory.swift; sourceTree = "<group>"; };
 		B33987E2251971C000935D79 /* BrMScrollableStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrMScrollableStack.swift; sourceTree = "<group>"; };
+		B33987E62519902100935D79 /* ExpyTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpyTableView.swift; sourceTree = "<group>"; };
+		B33987E82519902100935D79 /* ExpyAbstractions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpyAbstractions.swift; sourceTree = "<group>"; };
+		B33987EF2519906000935D79 /* ExpyExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpyExampleViewController.swift; sourceTree = "<group>"; };
 		B35851F22517F06500259FE0 /* FAQs.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = FAQs.json; sourceTree = "<group>"; };
 		B35851F42517F32200259FE0 /* FAQViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FAQViewController.swift; sourceTree = "<group>"; };
 		B35851FC2517F34F00259FE0 /* FAQPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQPresenter.swift; sourceTree = "<group>"; };
@@ -90,6 +96,7 @@
 		6E6206602129E3DE007AFA70 /* ExpandableTableView */ = {
 			isa = PBXGroup;
 			children = (
+				B33987E42519902100935D79 /* ExpyTableView */,
 				B33987C92519431500935D79 /* TestViewController.swift */,
 				B33987B525191DDA00935D79 /* ViewController.swift */,
 				6E62067B2129E8A6007AFA70 /* View */,
@@ -155,6 +162,16 @@
 				B33987DA25196E1300935D79 /* CollapseTableViewFactory.swift */,
 			);
 			path = Collapse;
+			sourceTree = "<group>";
+		};
+		B33987E42519902100935D79 /* ExpyTableView */ = {
+			isa = PBXGroup;
+			children = (
+				B33987E62519902100935D79 /* ExpyTableView.swift */,
+				B33987E82519902100935D79 /* ExpyAbstractions.swift */,
+				B33987EF2519906000935D79 /* ExpyExampleViewController.swift */,
+			);
+			path = ExpyTableView;
 			sourceTree = "<group>";
 		};
 		B358521E2518E02300259FE0 /* Expandable */ = {
@@ -238,6 +255,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B33987EB2519902100935D79 /* ExpyTableView.swift in Sources */,
 				B33987CA2519431500935D79 /* TestViewController.swift in Sources */,
 				6E6206892129E96B007AFA70 /* ReusableView.swift in Sources */,
 				6E620692212A334F007AFA70 /* ExpandableCell.swift in Sources */,
@@ -247,8 +265,10 @@
 				B33987B82519315300935D79 /* HeaderView.swift in Sources */,
 				B33987DB25196E1300935D79 /* CollapseTableViewFactory.swift in Sources */,
 				6E6206872129E96B007AFA70 /* UITableView+ReusableView.swift in Sources */,
+				B33987ED2519902100935D79 /* ExpyAbstractions.swift in Sources */,
 				B33987D72519553200935D79 /* CollapseViewController.swift in Sources */,
 				B33987D52519550900935D79 /* CollapseTableView.swift in Sources */,
+				B33987F02519906000935D79 /* ExpyExampleViewController.swift in Sources */,
 				B35851FD2517F34F00259FE0 /* FAQPresenter.swift in Sources */,
 				6E6206622129E3DE007AFA70 /* AppDelegate.swift in Sources */,
 				B35851F52517F32200259FE0 /* FAQViewController.swift in Sources */,

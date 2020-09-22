@@ -36,43 +36,28 @@ class CollapseViewController: UIViewController {
 
 extension CollapseViewController: FAQViewControllerProtocol {
     func showView(withFAQs faqs: [FAQModel]) {
-        let views = faqs.compactMap { faq in
-            factory.create(title: faq.title, sections: faq.section)
+
+        let viewModels = faqs.enumerated().compactMap { (index, faq) -> FAQViewModel in
+            var rows: [String] = []
+            for (index, element) in faq.section.enumerated() {
+                rows += [element.title] + element.questions.compactMap { $0.title}
+            }
+            return FAQViewModel(title: faq.title, rows: [])
         }
 
-        scrollableStack.update(with: views)
-        
-        //scrollableStack.setCustom(space: -560, after: CollapseView.self)
+        let view = factory.create(viewModels: viewModels)
 
-//        let view0 = views[0]
-//        let view1 = views[1]
-//
-//
-//        view.addSubview(view0)
-//        view.addSubview(view1)
-//
-//        view0.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            view0.heightAnchor.constraint(equalToConstant: 420),
-//            view0.topAnchor.constraint(equalTo: view.topAnchor),
-//            view0.bottomAnchor.constraint(equalTo: view1.topAnchor, constant: 16),
-//            view0.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            view0.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-//        ])
-//
-//        view1.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            //view1.heightAnchor.constraint(equalToConstant: 100),
-//            view1.topAnchor.constraint(equalTo: view0.bottomAnchor),
-//            view1.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-//            view1.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            view1.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-//        ])
+        scrollableStack.update(with: [view])
     }
 
     func showErrorView(withError error: Error) {}
 
     func showEmptyView() {}
+}
+
+struct FAQViewModel {
+    let title: String
+    let rows: [String]
 }
 
 //------------------------------------------------- VIEW -------------------------------------------------------------------------------
@@ -81,8 +66,23 @@ class CollapseView: UIView {
 
     let tableView: CollapseTableView = CollapseTableView()
 
-    var sections: [Section]
-    var title: String
+    var sections: [Section] = []
+    var title: String = ""
+
+    var viewModels: [FAQViewModel] = []
+
+    init(frame: CGRect = .zero, viewModels: [FAQViewModel]) {
+        self.viewModels = viewModels
+        super.init(frame: frame)
+
+        setupTableView()
+
+        tableView.isScrollEnabled = false
+        tableView.estimatedRowHeight = 44
+        tableView.didTapSectionHeaderView = { (sectionIndex, isOpen) in
+            debugPrint("sectionIndex \(sectionIndex), isOpen \(isOpen)")
+        }
+    }
 
     init(frame: CGRect = .zero, title: String, sections: [Section]) {
         self.title = title
@@ -138,22 +138,22 @@ class CollapseView: UIView {
 
 extension CollapseView: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
+        return viewModels.count//sections.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].questions.count
+        return viewModels[section].rows.count//sections[section].questions.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self))!
-        cell.textLabel?.text = sections[indexPath.section].questions[indexPath.row].title
+        //cell.textLabel?.text = viewModels[indexPath.section].rows[indexPath.row].first//sections[indexPath.section].questions[indexPath.row].title
         return cell
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view: SectionHeaderView = tableView.dequeueReusableHeaderFooterView(withIdentifier: SectionHeaderView.reuseIdentifier) as! SectionHeaderView
-        view.textLabel?.text = sections[section].title
+        view.textLabel?.text = viewModels[section].title//sections[section].title
         return view
     }
 

@@ -5,7 +5,8 @@ final class ExpandableView: UIView {
     private var tableView: UITableView = UITableView()
 
     private var hiddenSections = Set<Int>()
-    private var faqs: [FAQModel] = [] {
+
+    var viewModels: [FAQViewModel] = [] {
         didSet {
             tableView.reloadData()
         }
@@ -21,9 +22,9 @@ final class ExpandableView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func update(withFAQs faqs: [FAQModel]) {
-        self.faqs = faqs
-    }
+//    func update(withFAQs faqs: [FAQModel]) {
+//        self.faqs = faqs
+//    }
 }
 
 extension ExpandableView: ViewCodable {
@@ -58,7 +59,7 @@ extension ExpandableView: ViewCodable {
         func indexPathsForSection() -> [IndexPath] {
             var indexPaths = [IndexPath]()
 
-            for row in 0 ..< faqs[section].section.count {
+            for row in 0 ..< viewModels[section].rows.count {
                 indexPaths.append(IndexPath(row: row, section: section))
             }
 
@@ -81,26 +82,26 @@ extension ExpandableView: ViewCodable {
 
 extension ExpandableView: UITableViewDataSource {
     func numberOfSections(in _: UITableView) -> Int {
-        return faqs.count
+        return viewModels.count
     }
 
     func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
         if hiddenSections.contains(section) {
             return 0
         }
-        return faqs[section].section.count
+        return viewModels[section].rows.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self))!
         cell.selectionStyle = .none
-        cell.textLabel?.text = faqs[indexPath.section].section[indexPath.row].title
+        //cell.textLabel?.text = viewModels[indexPath.section].rows[indexPath.row].first
         return cell
     }
 
     func tableView(_: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sectionButton = UIButton()
-        sectionButton.setTitle(faqs[section].title, for: .normal)
+        sectionButton.setTitle(viewModels[section].title, for: .normal)
         sectionButton.backgroundColor = .systemBlue
         sectionButton.tag = section
         sectionButton.addTarget(self, action: #selector(hideSection(sender:)), for: .touchUpInside)

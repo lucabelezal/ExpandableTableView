@@ -3,10 +3,10 @@ import UIKit
 final class ExpandableCell: UITableViewCell {
 
     private let containerView: UIView = UIView()
-    private var lineView: UIView = UIView()
+//    private var lineView: UIView = UIView()
     private let titleLabel: UILabel = UILabel()
-    private let descriptionLabel: UILabel = UILabel()
-    private let arrowImageView: UIImageView = UIImageView()
+//    private let descriptionLabel: UILabel = UILabel()
+    let arrowImageView: UIImageView = UIImageView()
     private var bottomConstraintOn, bottomConstraintOff: NSLayoutConstraint?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -32,9 +32,9 @@ final class ExpandableCell: UITableViewCell {
 //        bottomConstraintOff?.isActive = !isExpanded
     }
 
-    func update(title: String, description: String) {
+    func update(title: String?, description: String? = nil) {
          titleLabel.text = title
-         descriptionLabel.text = description
+//         descriptionLabel.text = description
     }
 
     private func rotateArrowImage(isExpanded: Bool) {
@@ -47,22 +47,22 @@ final class ExpandableCell: UITableViewCell {
 extension ExpandableCell: ViewCodable {
 
     func configureView() {
-        lineView.backgroundColor = UIColor.gray.withAlphaComponent(0.3)
+//        lineView.backgroundColor = UIColor.gray.withAlphaComponent(0.3)
         arrowImageView.image = UIImage(named: "expand-button")
         titleLabel.numberOfLines = 0
         titleLabel.textColor = .black
         titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        descriptionLabel.numberOfLines = 0
-        descriptionLabel.textColor = UIColor.darkGray
-        descriptionLabel.font = UIFont.systemFont(ofSize: 14)
+//        descriptionLabel.numberOfLines = 0
+//        descriptionLabel.textColor = UIColor.darkGray
+//        descriptionLabel.font = UIFont.systemFont(ofSize: 14)
         backgroundColor = .white
     }
 
     func configureHierarchy() {
-        [lineView, descriptionLabel].forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-            containerView.addSubview($0)
-        }
+//        [lineView, descriptionLabel].forEach {
+//            $0.translatesAutoresizingMaskIntoConstraints = false
+//            containerView.addSubview($0)
+//        }
 
         [titleLabel, arrowImageView, containerView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -98,19 +98,19 @@ extension ExpandableCell: ViewCodable {
             containerView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
 
-        NSLayoutConstraint.activate([
-            lineView.topAnchor.constraint(equalTo: containerView.topAnchor),
-            lineView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
-            lineView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
-            lineView.heightAnchor.constraint(equalToConstant: 1)
-        ])
+//        NSLayoutConstraint.activate([
+//            lineView.topAnchor.constraint(equalTo: containerView.topAnchor),
+//            lineView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
+//            lineView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
+//            lineView.heightAnchor.constraint(equalToConstant: 1)
+//        ])
 
-        NSLayoutConstraint.activate([
-            descriptionLabel.topAnchor.constraint(equalTo: lineView.bottomAnchor),
-            descriptionLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -16),
-            descriptionLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
-            descriptionLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16)
-        ])
+//        NSLayoutConstraint.activate([
+//            descriptionLabel.topAnchor.constraint(equalTo: lineView.bottomAnchor),
+//            descriptionLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -16),
+//            descriptionLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
+//            descriptionLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16)
+//        ])
     }
 }
 

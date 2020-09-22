@@ -37,7 +37,16 @@ final class FAQViewController: UIViewController {
 
 extension FAQViewController: FAQViewControllerProtocol {
     func showView(withFAQs faqs: [FAQModel]) {
-        customView.update(withFAQs: faqs)
+
+        let viewModels = faqs.enumerated().compactMap { (index, faq) -> FAQViewModel in
+            var rows: [String] = []
+            for (index, element) in faq.section.enumerated() {
+                rows += [element.title] + element.questions.compactMap { $0.title}
+            }
+            return FAQViewModel(title: faq.title, rows: [])
+        }
+        customView.viewModels = viewModels
+        //customView.update(withFAQs: faqs)
     }
 
     func showErrorView(withError error: Error) {}
