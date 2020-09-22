@@ -35,7 +35,7 @@ public final class ExpandableTableView: UITableView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    //MARK: - Public Methods -
+    // MARK: - Public Methods -
 
     public func expand(_ section: Int) {
         collapseLastExpandedSectionIfNeeded()
@@ -46,7 +46,7 @@ public final class ExpandableTableView: UITableView {
         animate(withActionType: .collapse, forSection: section)
     }
 
-    //MARK: - Private Methods -
+    // MARK: - Private Methods -
 
     private func collapseLastExpandedSectionIfNeeded() {
         expandedSections.forEach { section in
@@ -75,12 +75,9 @@ public final class ExpandableTableView: UITableView {
         headerCell?.isUserInteractionEnabled = false
 
         headerCellConformant?.changeState(cellReuseStatus: false)
-        //expandableDelegate?.tableView(tableView, changeForSection: section)
 
-        CATransaction.setCompletionBlock { //[weak self] in
+        CATransaction.setCompletionBlock {
             headerCellConformant?.changeState(cellReuseStatus: false)
-
-            //self?.expandableDelegate?.tableView(tableView, changeForSection: section)
             headerCell?.isUserInteractionEnabled = true
         }
 
@@ -117,7 +114,7 @@ public final class ExpandableTableView: UITableView {
         expandedSections[section] = asExpanded
     }
 
-    //MARK: - Verify Protocol -
+    // MARK: - Verify Protocol -
 
     private func verifyProtocol(_ aProtocol: Protocol, contains aSelector: Selector) -> Bool {
           return protocol_getMethodDescription(aProtocol, aSelector, true, true).name != nil ||
@@ -145,7 +142,7 @@ public final class ExpandableTableView: UITableView {
       }
 }
 
-//MARK: - UITableViewDataSource Protocol -
+// MARK: - UITableViewDataSource Protocol -
 
 extension ExpandableTableView: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -175,7 +172,7 @@ extension ExpandableTableView: UITableViewDataSource {
     }
 }
 
-//MARK: - UITableViewDelegate Protocol -
+// MARK: - UITableViewDelegate Protocol -
 
 extension ExpandableTableView: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -65,7 +65,7 @@ extension FAQViewController: FAQViewControllerProtocol {
     func showEmptyView() {}
 }
 
-//MARK: - ExpandableTableDataSource Protocol -
+// MARK: - ExpandableTableDataSource Protocol -
 
 extension FAQViewController: ExpandableTableDataSource {
 
@@ -100,7 +100,7 @@ extension FAQViewController: ExpandableTableDataSource {
     }
 }
 
-//MARK: - ExpandableTableDelegate Protocol -
+// MARK: - ExpandableTableDelegate Protocol -
 
 extension FAQViewController: ExpandableTableDelegate {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -109,7 +109,7 @@ extension FAQViewController: ExpandableTableDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        
+
         guard isFirstRowAt(indexPath: indexPath) else { return }
 
         let viewController = UIViewController()
