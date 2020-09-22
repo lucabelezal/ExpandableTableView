@@ -38,16 +38,16 @@ public final class ExpandableTableView: UITableView {
     //MARK: - Public Methods -
 
     public func expand(_ section: Int) {
-        animate(with: .expand, forSection: section)
+        animate(withActionType: .expand, forSection: section)
     }
 
     public func collapse(_ section: Int) {
-        animate(with: .collapse, forSection: section)
+        animate(withActionType: .collapse, forSection: section)
     }
 
     //MARK: - Private Methods -
 
-    private func animate(with type: ExpandableActionType, forSection section: Int) {
+    private func animate(withActionType type: ExpandableActionType, forSection section: Int) {
         guard canExpand(section) else { return }
 
         let sectionIsExpanded = didExpand(section)
@@ -55,12 +55,12 @@ public final class ExpandableTableView: UITableView {
         if ((type == .expand) && (sectionIsExpanded)) || ((type == .collapse) && (!sectionIsExpanded)) { return }
 
         assign(section, asExpanded: (type == .expand))
-        startAnimating(self, with: type, forSection: section)
+        startAnimating(tableView: self, withActionType: type, forSection: section)
     }
 
-    private func startAnimating(_ tableView: ExpandableTableView, with type: ExpandableActionType, forSection section: Int) {
+    private func startAnimating(tableView: ExpandableTableView, withActionType type: ExpandableActionType, forSection section: Int) {
 
-        let headerCell = (self.cellForRow(at: IndexPath(row: 0, section: section)))
+        let headerCell = cellForRow(at: IndexPath(row: 0, section: section))
         let headerCellConformant = headerCell as? ExpandableTableHeaderCell
 
         CATransaction.begin()
@@ -69,14 +69,14 @@ public final class ExpandableTableView: UITableView {
         headerCellConformant?.changeState(cellReuseStatus: false)
         expandableDelegate?.tableView(tableView, changeForSection: section)
 
-        CATransaction.setCompletionBlock {
+        CATransaction.setCompletionBlock { [weak self] in
             headerCellConformant?.changeState(cellReuseStatus: false)
 
-            self.expandableDelegate?.tableView(tableView, changeForSection: section)
+            self?.expandableDelegate?.tableView(tableView, changeForSection: section)
             headerCell?.isUserInteractionEnabled = true
         }
 
-        self.beginUpdates()
+        beginUpdates()
         if let sectionRowCount = expandableDataSource?.tableView(tableView, numberOfRowsInSection: section), sectionRowCount > 1 {
 
             var indexesToProcess: [IndexPath] = []
@@ -86,12 +86,12 @@ public final class ExpandableTableView: UITableView {
             }
 
             if type == .expand {
-                self.insertRows(at: indexesToProcess, with: .fade)
+                insertRows(at: indexesToProcess, with: .fade)
             }else if type == .collapse {
-                self.deleteRows(at: indexesToProcess, with: .fade)
+                deleteRows(at: indexesToProcess, with: .fade)
             }
         }
-        self.endUpdates()
+        endUpdates()
         CATransaction.commit()
     }
 
@@ -132,13 +132,7 @@ extension ExpandableTableView: UITableViewDataSource {
         }
 
         DispatchQueue.main.async {
-            if self.didExpand(indexPath.section) {
-                headerCellConformant.changeState(cellReuseStatus: true)
-                headerCellConformant.changeState(cellReuseStatus: true)
-            }else {
-                headerCellConformant.changeState(cellReuseStatus: true)
-                headerCellConformant.changeState(cellReuseStatus: true)
-            }
+            headerCellConformant.changeState(cellReuseStatus: true)
         }
         return headerCell
     }
@@ -158,7 +152,7 @@ extension ExpandableTableView: UITableViewDelegate {
 //MARK: - Helper Protocol -
 
 extension ExpandableTableView {
-    fileprivate func verifyProtocol(_ aProtocol: Protocol, contains aSelector: Selector) -> Bool {
+    private func verifyProtocol(_ aProtocol: Protocol, contains aSelector: Selector) -> Bool {
         return protocol_getMethodDescription(aProtocol, aSelector, true, true).name != nil ||
             protocol_getMethodDescription(aProtocol, aSelector, false, true).name != nil
     }
@@ -167,7 +161,7 @@ extension ExpandableTableView {
         if verifyProtocol(UITableViewDataSource.self, contains: aSelector) {
             return (super.responds(to: aSelector)) || (expandableDataSource?.responds(to: aSelector) ?? false)
 
-        }else if verifyProtocol(UITableViewDelegate.self, contains: aSelector) {
+        } else if verifyProtocol(UITableViewDelegate.self, contains: aSelector) {
             return (super.responds(to: aSelector)) || (expandableDelegate?.responds(to: aSelector) ?? false)
         }
         return super.responds(to: aSelector)
@@ -177,7 +171,7 @@ extension ExpandableTableView {
         if verifyProtocol(UITableViewDataSource.self, contains: aSelector) {
             return expandableDataSource
 
-        }else if verifyProtocol(UITableViewDelegate.self, contains: aSelector) {
+        } else if verifyProtocol(UITableViewDelegate.self, contains: aSelector) {
             return expandableDelegate
         }
         return super.forwardingTarget(for: aSelector)

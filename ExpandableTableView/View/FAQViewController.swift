@@ -31,7 +31,7 @@ final class FAQViewController: UIViewController {
     override func loadView() {
         let tableView = ExpandableTableView()
         tableView.tableFooterView = UIView()
-        tableView.register(ExpandableCell.self)
+        tableView.register(UITableViewCell.self)
         tableView.delegate = self
         tableView.dataSource = self
         view = tableView
@@ -72,10 +72,9 @@ extension FAQViewController: ExpandableTableDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ExpandableCell.self)) as! ExpandableCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self))!
         let title = sectionItems[indexPath.section].rows[indexPath.row]
-        cell.update(title: title)
-        cell.arrowImageView.image = nil
+        cell.textLabel?.text = title
         cell.layoutMargins = UIEdgeInsets.zero
         cell.backgroundColor = .blue
         return cell
@@ -86,7 +85,7 @@ extension FAQViewController: ExpandableTableDataSource {
     }
 
     func tableView(_ tableView: ExpandableTableView, expandableCellForSection section: Int) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ExpandableCell.self)) as! ExpandableCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UITableViewCell.self))!
         cell.textLabel?.text = sectionItems[section].rows.first
         cell.layoutMargins = .zero
         cell.backgroundColor = .orange
@@ -109,6 +108,10 @@ extension FAQViewController: ExpandableTableDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        return 56
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 56
     }
 }

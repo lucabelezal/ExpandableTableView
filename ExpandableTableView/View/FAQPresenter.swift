@@ -38,8 +38,6 @@ final class FAQPresenter: FAQPresenterProtocol {
     private func transformSectionIntoRows(section: Section) -> [String] {
         return [section.title] + section.questions.compactMap { $0.title }
     }
-
-
 }
 
 
