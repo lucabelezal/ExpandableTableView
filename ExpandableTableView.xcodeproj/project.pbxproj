@@ -98,7 +98,7 @@
 		6E6206602129E3DE007AFA70 /* ExpandableTableView */ = {
 			isa = PBXGroup;
 			children = (
-				B33987E42519902100935D79 /* ExpandableTableView */,
+				B326075E251A9C4C0075B99F /* Tests */,
 				6E62067B2129E8A6007AFA70 /* View */,
 				6E62067A2129E89E007AFA70 /* Model */,
 				6E62067E2129E96B007AFA70 /* Utils */,
@@ -130,13 +130,11 @@
 		6E62067B2129E8A6007AFA70 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B33987C92519431500935D79 /* TestViewController.swift */,
-				B33987B525191DDA00935D79 /* ViewController.swift */,
-				B33987D1251954ED00935D79 /* Collapse */,
-				B358521E2518E02300259FE0 /* Expandable */,
+				B33987E42519902100935D79 /* ExpandableTableView */,
 				B35851FC2517F34F00259FE0 /* FAQPresenter.swift */,
 				B35851F42517F32200259FE0 /* FAQViewController.swift */,
 				B33987B72519315300935D79 /* HeaderView.swift */,
+				B326075C251A91760075B99F /* FAQSectionViewModel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -152,6 +150,18 @@
 				B33987E2251971C000935D79 /* BrMScrollableStack.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		B326075E251A9C4C0075B99F /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				B358521E2518E02300259FE0 /* Expandable */,
+				B33987D1251954ED00935D79 /* Collapse */,
+				B33987EF2519906000935D79 /* ExampleViewController.swift */,
+				B33987C92519431500935D79 /* TestViewController.swift */,
+				B33987B525191DDA00935D79 /* ViewController.swift */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		B33987D1251954ED00935D79 /* Collapse */ = {
@@ -171,8 +181,6 @@
 			children = (
 				B326075A251A8FBA0075B99F /* ExpandableTableView.swift */,
 				B33987E82519902100935D79 /* ExpyAbstractions.swift */,
-				B33987EF2519906000935D79 /* ExampleViewController.swift */,
-				B326075C251A91760075B99F /* FAQSectionViewModel.swift */,
 			);
 			path = ExpandableTableView;
 			sourceTree = "<group>";

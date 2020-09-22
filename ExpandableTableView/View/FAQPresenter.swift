@@ -24,18 +24,11 @@ final class FAQPresenter: FAQPresenterProtocol {
 
         sectionNames = items
 
-        for (index, element) in items.enumerated() {
-            for section in items[index].section {
+        for (index, item) in items.enumerated() {
+            for section in item.section {
                 var title: String?
-                if section == items[index].section.first {
-                    title = element.title
-                }
-                sectionItems += [
-                    FAQSectionViewModel(
-                        title: title,
-                        rows: transformSectionIntoRows(section: section)
-                    )
-                ]
+                if section == items[index].section.first { title = item.title }
+                sectionItems += [FAQSectionViewModel(title: title, rows: transformSectionIntoRows(section: section))]
             }
         }
 
@@ -45,6 +38,8 @@ final class FAQPresenter: FAQPresenterProtocol {
     private func transformSectionIntoRows(section: Section) -> [String] {
         return [section.title] + section.questions.compactMap { $0.title }
     }
+
+
 }
 
 
