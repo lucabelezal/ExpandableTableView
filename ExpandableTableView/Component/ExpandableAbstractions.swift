@@ -4,8 +4,12 @@ public enum ExpandableActionType {
     case expand, collapse
 }
 
-@objc public protocol ExpandableTableHeaderCell: class {
-    func changeState(cellReuseStatus cellReuse: Bool)
+@objc public enum ExpandableState: Int {
+    case willExpand, willCollapse, didExpand, didCollapse
+}
+
+@objc public protocol ExpandableTableHeaderCell: AnyObject {
+    func changeState(state: ExpandableState, cellReuse: Bool)
 }
 
 @objc public protocol ExpandableTableDataSource: UITableViewDataSource {

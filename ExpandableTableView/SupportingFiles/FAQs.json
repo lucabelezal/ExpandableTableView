@@ -1,9 +1,9 @@
 [
   {
-    "title": "DÚVIDAS GERAIS",
+    "title": "SEÇÃO",
     "section": [
       {
-        "title": "Cadastro (4 Itens)",
+        "title": "Assunto (4 Itens)",
         "questions": [
           {
             "id": 1,
@@ -24,7 +24,7 @@
         ]
       },
       {
-        "title": "Estacionamento (3 Itens)",
+        "title": "Assunto (3 Itens)",
         "questions": [
           {
             "id": 4,
@@ -43,10 +43,10 @@
     ]
   },
   {
-    "title": "PROGRAMA DE RELACIONAMENTO",
+    "title": "SEÇÃO 2",
     "section": [
       {
-        "title": "Adesão (5 Itens)",
+        "title": "Assunto (5 Itens)",
         "questions": [
           {
             "id": 17,
@@ -71,7 +71,7 @@
         ]
       },
       {
-        "title": "Benefícios (3 Itens)",
+        "title": "Assunto (3 Itens)",
         "questions": [
           {
             "id": 22,
@@ -88,7 +88,7 @@
         ]
       },
       {
-        "title": "Evolução no programa (2 Itens)",
+        "title": "Assunto (2 Itens)",
         "questions": [
           {
             "id": 25,

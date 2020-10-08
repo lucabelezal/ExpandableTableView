@@ -15,25 +15,20 @@
 		6E6206872129E96B007AFA70 /* UITableView+ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6206822129E96B007AFA70 /* UITableView+ReusableView.swift */; };
 		6E6206882129E96B007AFA70 /* UIView+ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6206832129E96B007AFA70 /* UIView+ReusableView.swift */; };
 		6E6206892129E96B007AFA70 /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6206842129E96B007AFA70 /* ReusableView.swift */; };
-		6E62068B2129EA06007AFA70 /* ExpandableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E62068A2129EA06007AFA70 /* ExpandableView.swift */; };
-		6E620692212A334F007AFA70 /* ExpandableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E620691212A334F007AFA70 /* ExpandableCell.swift */; };
 		B326075B251A8FBA0075B99F /* ExpandableTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B326075A251A8FBA0075B99F /* ExpandableTableView.swift */; };
-		B326075D251A91760075B99F /* FAQSectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B326075C251A91760075B99F /* FAQSectionViewModel.swift */; };
-		B33987B625191DDA00935D79 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33987B525191DDA00935D79 /* ViewController.swift */; };
-		B33987B82519315300935D79 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33987B72519315300935D79 /* HeaderView.swift */; };
-		B33987CA2519431500935D79 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33987C92519431500935D79 /* TestViewController.swift */; };
-		B33987D3251954F600935D79 /* CollapseSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33987D2251954F600935D79 /* CollapseSectionHeader.swift */; };
-		B33987D52519550900935D79 /* CollapseTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33987D42519550900935D79 /* CollapseTableView.swift */; };
-		B33987D72519553200935D79 /* CollapseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33987D62519553200935D79 /* CollapseViewController.swift */; };
-		B33987D92519591700935D79 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33987D82519591700935D79 /* SectionHeaderView.swift */; };
-		B33987DB25196E1300935D79 /* CollapseTableViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33987DA25196E1300935D79 /* CollapseTableViewFactory.swift */; };
 		B33987E3251971C000935D79 /* BrMScrollableStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33987E2251971C000935D79 /* BrMScrollableStack.swift */; };
 		B33987ED2519902100935D79 /* ExpandableAbstractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33987E82519902100935D79 /* ExpandableAbstractions.swift */; };
-		B33987F02519906000935D79 /* ExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33987EF2519906000935D79 /* ExampleViewController.swift */; };
 		B35851F32517F06500259FE0 /* FAQs.json in Resources */ = {isa = PBXBuildFile; fileRef = B35851F22517F06500259FE0 /* FAQs.json */; };
 		B35851F52517F32200259FE0 /* FAQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35851F42517F32200259FE0 /* FAQViewController.swift */; };
 		B35851FD2517F34F00259FE0 /* FAQPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35851FC2517F34F00259FE0 /* FAQPresenter.swift */; };
 		B35851FF2517F40400259FE0 /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35851FE2517F40400259FE0 /* JSONHelper.swift */; };
+		B3BB4647252FBB3600B676C5 /* FAQItemsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BB4646252FBB3600B676C5 /* FAQItemsModel.swift */; };
+		B3BB4649252FBB9100B676C5 /* FAQService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BB4648252FBB9100B676C5 /* FAQService.swift */; };
+		B3BB464F252FBD5600B676C5 /* FAQView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BB464E252FBD5600B676C5 /* FAQView.swift */; };
+		B3BB4653252FBD7D00B676C5 /* FAQHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BB4652252FBD7D00B676C5 /* FAQHeaderView.swift */; };
+		B3BB4655252FBD9000B676C5 /* FAQHeaderViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BB4654252FBD9000B676C5 /* FAQHeaderViewCell.swift */; };
+		B3BB4657252FBDA000B676C5 /* FAQViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BB4656252FBDA000B676C5 /* FAQViewCell.swift */; };
+		B3BB4659252FBEC000B676C5 /* QuestionAnswerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BB4658252FBEC000B676C5 /* QuestionAnswerModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,25 +42,20 @@
 		6E6206822129E96B007AFA70 /* UITableView+ReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+ReusableView.swift"; sourceTree = "<group>"; };
 		6E6206832129E96B007AFA70 /* UIView+ReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+ReusableView.swift"; sourceTree = "<group>"; };
 		6E6206842129E96B007AFA70 /* ReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
-		6E62068A2129EA06007AFA70 /* ExpandableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableView.swift; sourceTree = "<group>"; };
-		6E620691212A334F007AFA70 /* ExpandableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandableCell.swift; sourceTree = "<group>"; };
 		B326075A251A8FBA0075B99F /* ExpandableTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandableTableView.swift; sourceTree = "<group>"; };
-		B326075C251A91760075B99F /* FAQSectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQSectionViewModel.swift; sourceTree = "<group>"; };
-		B33987B525191DDA00935D79 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		B33987B72519315300935D79 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
-		B33987C92519431500935D79 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
-		B33987D2251954F600935D79 /* CollapseSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapseSectionHeader.swift; sourceTree = "<group>"; };
-		B33987D42519550900935D79 /* CollapseTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapseTableView.swift; sourceTree = "<group>"; };
-		B33987D62519553200935D79 /* CollapseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapseViewController.swift; sourceTree = "<group>"; };
-		B33987D82519591700935D79 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
-		B33987DA25196E1300935D79 /* CollapseTableViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapseTableViewFactory.swift; sourceTree = "<group>"; };
 		B33987E2251971C000935D79 /* BrMScrollableStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrMScrollableStack.swift; sourceTree = "<group>"; };
 		B33987E82519902100935D79 /* ExpandableAbstractions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandableAbstractions.swift; sourceTree = "<group>"; };
-		B33987EF2519906000935D79 /* ExampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleViewController.swift; sourceTree = "<group>"; };
 		B35851F22517F06500259FE0 /* FAQs.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = FAQs.json; sourceTree = "<group>"; };
 		B35851F42517F32200259FE0 /* FAQViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FAQViewController.swift; sourceTree = "<group>"; };
 		B35851FC2517F34F00259FE0 /* FAQPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQPresenter.swift; sourceTree = "<group>"; };
 		B35851FE2517F40400259FE0 /* JSONHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONHelper.swift; sourceTree = "<group>"; };
+		B3BB4646252FBB3600B676C5 /* FAQItemsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQItemsModel.swift; sourceTree = "<group>"; };
+		B3BB4648252FBB9100B676C5 /* FAQService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQService.swift; sourceTree = "<group>"; };
+		B3BB464E252FBD5600B676C5 /* FAQView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQView.swift; sourceTree = "<group>"; };
+		B3BB4652252FBD7D00B676C5 /* FAQHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQHeaderView.swift; sourceTree = "<group>"; };
+		B3BB4654252FBD9000B676C5 /* FAQHeaderViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQHeaderViewCell.swift; sourceTree = "<group>"; };
+		B3BB4656252FBDA000B676C5 /* FAQViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQViewCell.swift; sourceTree = "<group>"; };
+		B3BB4658252FBEC000B676C5 /* QuestionAnswerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionAnswerModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,10 +88,8 @@
 		6E6206602129E3DE007AFA70 /* ExpandableTableView */ = {
 			isa = PBXGroup;
 			children = (
-				B326075E251A9C4C0075B99F /* Tests */,
-				6E62067B2129E8A6007AFA70 /* View */,
-				6E62067A2129E89E007AFA70 /* Model */,
-				6E62067E2129E96B007AFA70 /* Utils */,
+				B3BB464A252FBD1300B676C5 /* Example */,
+				B33987E42519902100935D79 /* Component */,
 				6E6206792129E893007AFA70 /* SupportingFiles */,
 			);
 			path = ExpandableTableView;
@@ -123,6 +111,8 @@
 			isa = PBXGroup;
 			children = (
 				6E6206752129E49B007AFA70 /* FAQModel.swift */,
+				B3BB4646252FBB3600B676C5 /* FAQItemsModel.swift */,
+				B3BB4658252FBEC000B676C5 /* QuestionAnswerModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -130,11 +120,10 @@
 		6E62067B2129E8A6007AFA70 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B33987E42519902100935D79 /* ExpandableTableView */,
-				B35851FC2517F34F00259FE0 /* FAQPresenter.swift */,
+				B3BB4650252FBD6A00B676C5 /* Header */,
+				B3BB4651252FBD7200B676C5 /* Cells */,
 				B35851F42517F32200259FE0 /* FAQViewController.swift */,
-				B33987B72519315300935D79 /* HeaderView.swift */,
-				B326075C251A91760075B99F /* FAQSectionViewModel.swift */,
+				B3BB464E252FBD5600B676C5 /* FAQView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -152,46 +141,58 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		B326075E251A9C4C0075B99F /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				B358521E2518E02300259FE0 /* Expandable */,
-				B33987D1251954ED00935D79 /* Collapse */,
-				B33987EF2519906000935D79 /* ExampleViewController.swift */,
-				B33987C92519431500935D79 /* TestViewController.swift */,
-				B33987B525191DDA00935D79 /* ViewController.swift */,
-			);
-			path = Tests;
-			sourceTree = "<group>";
-		};
-		B33987D1251954ED00935D79 /* Collapse */ = {
-			isa = PBXGroup;
-			children = (
-				B33987D2251954F600935D79 /* CollapseSectionHeader.swift */,
-				B33987D82519591700935D79 /* SectionHeaderView.swift */,
-				B33987D42519550900935D79 /* CollapseTableView.swift */,
-				B33987D62519553200935D79 /* CollapseViewController.swift */,
-				B33987DA25196E1300935D79 /* CollapseTableViewFactory.swift */,
-			);
-			path = Collapse;
-			sourceTree = "<group>";
-		};
-		B33987E42519902100935D79 /* ExpandableTableView */ = {
+		B33987E42519902100935D79 /* Component */ = {
 			isa = PBXGroup;
 			children = (
 				B326075A251A8FBA0075B99F /* ExpandableTableView.swift */,
 				B33987E82519902100935D79 /* ExpandableAbstractions.swift */,
 			);
-			path = ExpandableTableView;
+			path = Component;
 			sourceTree = "<group>";
 		};
-		B358521E2518E02300259FE0 /* Expandable */ = {
+		B3BB464A252FBD1300B676C5 /* Example */ = {
 			isa = PBXGroup;
 			children = (
-				6E62068A2129EA06007AFA70 /* ExpandableView.swift */,
-				6E620691212A334F007AFA70 /* ExpandableCell.swift */,
+				B3BB464C252FBD2800B676C5 /* Service */,
+				B3BB464B252FBD2200B676C5 /* Presenter */,
+				6E62067B2129E8A6007AFA70 /* View */,
+				6E62067A2129E89E007AFA70 /* Model */,
+				6E62067E2129E96B007AFA70 /* Utils */,
 			);
-			path = Expandable;
+			path = Example;
+			sourceTree = "<group>";
+		};
+		B3BB464B252FBD2200B676C5 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				B35851FC2517F34F00259FE0 /* FAQPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		B3BB464C252FBD2800B676C5 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				B3BB4648252FBB9100B676C5 /* FAQService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		B3BB4650252FBD6A00B676C5 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				B3BB4652252FBD7D00B676C5 /* FAQHeaderView.swift */,
+			);
+			path = Header;
+			sourceTree = "<group>";
+		};
+		B3BB4651252FBD7200B676C5 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				B3BB4654252FBD9000B676C5 /* FAQHeaderViewCell.swift */,
+				B3BB4656252FBDA000B676C5 /* FAQViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,29 +267,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B33987CA2519431500935D79 /* TestViewController.swift in Sources */,
+				B3BB4655252FBD9000B676C5 /* FAQHeaderViewCell.swift in Sources */,
 				6E6206892129E96B007AFA70 /* ReusableView.swift in Sources */,
-				6E620692212A334F007AFA70 /* ExpandableCell.swift in Sources */,
-				B33987D3251954F600935D79 /* CollapseSectionHeader.swift in Sources */,
 				6E6206762129E49B007AFA70 /* FAQModel.swift in Sources */,
-				B326075D251A91760075B99F /* FAQSectionViewModel.swift in Sources */,
-				6E62068B2129EA06007AFA70 /* ExpandableView.swift in Sources */,
-				B33987B82519315300935D79 /* HeaderView.swift in Sources */,
-				B33987DB25196E1300935D79 /* CollapseTableViewFactory.swift in Sources */,
+				B3BB4647252FBB3600B676C5 /* FAQItemsModel.swift in Sources */,
+				B3BB4649252FBB9100B676C5 /* FAQService.swift in Sources */,
 				6E6206872129E96B007AFA70 /* UITableView+ReusableView.swift in Sources */,
+				B3BB4659252FBEC000B676C5 /* QuestionAnswerModel.swift in Sources */,
 				B33987ED2519902100935D79 /* ExpandableAbstractions.swift in Sources */,
-				B33987D72519553200935D79 /* CollapseViewController.swift in Sources */,
-				B33987D52519550900935D79 /* CollapseTableView.swift in Sources */,
-				B33987F02519906000935D79 /* ExampleViewController.swift in Sources */,
 				B35851FD2517F34F00259FE0 /* FAQPresenter.swift in Sources */,
 				6E6206622129E3DE007AFA70 /* AppDelegate.swift in Sources */,
 				B35851F52517F32200259FE0 /* FAQViewController.swift in Sources */,
-				B33987D92519591700935D79 /* SectionHeaderView.swift in Sources */,
 				B326075B251A8FBA0075B99F /* ExpandableTableView.swift in Sources */,
+				B3BB4653252FBD7D00B676C5 /* FAQHeaderView.swift in Sources */,
 				B35851FF2517F40400259FE0 /* JSONHelper.swift in Sources */,
+				B3BB4657252FBDA000B676C5 /* FAQViewCell.swift in Sources */,
 				6E6206882129E96B007AFA70 /* UIView+ReusableView.swift in Sources */,
 				B33987E3251971C000935D79 /* BrMScrollableStack.swift in Sources */,
-				B33987B625191DDA00935D79 /* ViewController.swift in Sources */,
+				B3BB464F252FBD5600B676C5 /* FAQView.swift in Sources */,
 				6E6206862129E96B007AFA70 /* ViewCodable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

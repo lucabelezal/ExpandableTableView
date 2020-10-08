@@ -2,7 +2,7 @@ import Foundation
 
 struct FAQModel: Decodable {
     let title: String
-    let section: [Section]
+    let section: [FAQSectionModel]
 }
 
 extension FAQModel: Hashable {
@@ -11,24 +11,24 @@ extension FAQModel: Hashable {
     }
 }
 
-struct Section: Decodable {
+struct FAQSectionModel: Decodable {
     let title: String
-    let questions: [Question]
+    let questions: [FAQItemModel]
 }
 
-extension Section: Hashable {
-    static func == (lhs: Section, rhs: Section) -> Bool {
+extension FAQSectionModel: Hashable {
+    static func == (lhs: FAQSectionModel, rhs: FAQSectionModel) -> Bool {
         return lhs.title == rhs.title && lhs.questions == rhs.questions
     }
 }
 
-struct Question: Decodable {
+struct FAQItemModel: Decodable {
     let id: Int
     let title: String
 }
 
-extension Question: Hashable {
-    static func == (lhs: Question, rhs: Question) -> Bool {
+extension FAQItemModel: Hashable {
+    static func == (lhs: FAQItemModel, rhs: FAQItemModel) -> Bool {
         return lhs.id == rhs.id && lhs.title == rhs.title
     }
 }
