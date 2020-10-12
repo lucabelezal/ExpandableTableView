@@ -1,6 +1,6 @@
 import UIKit
 
-public final class BrMScrollableStack: UIView {
+public final class ScrollableStack: UIView {
     private let scrollView: UIScrollView = {
         let view = UIScrollView()
         view.contentInsetAdjustmentBehavior = .never
@@ -54,7 +54,7 @@ public final class BrMScrollableStack: UIView {
     }
 }
 
-extension BrMScrollableStack {
+extension ScrollableStack {
     public func buildViewHierarchy() {
         addSubview(scrollView)
         scrollView.addSubview(stackView)
