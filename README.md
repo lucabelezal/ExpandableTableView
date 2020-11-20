@@ -16,7 +16,7 @@ ExpandableTableView
 Instead of using the standard protocols `UITableViewDataSource` and `UITableViewDelegate`, use `ExpandableTableDataSource` and
 ExpandableTableDelegate`.
 
-See the implementation below:
+See the implementation below used in the class [FAQView](https://github.com/lucabelezal/ExpandableTableView/blob/master/ExpandableTableView/Example/View/FAQView.swift):
 
 ```swift
    private lazy var expandableTableView: ExpandableTableView = {
