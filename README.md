@@ -1,7 +1,7 @@
 # Expandable Table View
 
 
-### Copy the files that are in the Skeleton folder
+### Copy the files that are in the Component folder
 
 ```
 ExpandableTableView    
